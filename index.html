@@ -1,11 +1,1527 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="km">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ប្រព័ន្ធគ្រប់គ្រង និងកត់ត្រាព័ត៌មានអ្នកសួរព័ត៌មានសាលា | School Inquiry Management</title>
   <link rel="icon" type="image/png" href="school-logo.png">
-  <link rel="stylesheet" href="css/style.css">
+  <style>
+/* ==========================================================================
+   ប្រព័ន្ធគ្រប់គ្រង និងកត់ត្រាព័ត៌មានអ្នកសួរព័ត៌មានសាលា
+   School Inquiry & Admissions Management System
+   Stylesheet (Modern, Responsive, Khmer Typography)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --font-main: 'Kantumruy Pro', 'Plus Jakarta Sans', 'Khmer OS Siemreap', 'Khmer OS', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-en: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+
+  /* Colors */
+  --primary-50: #eff6ff;
+  --primary-100: #dbeafe;
+  --primary-500: #3b82f6;
+  --primary-600: #2563eb;
+  --primary-700: #1d4ed8;
+  --primary-900: #1e3a8a;
+
+  --accent-50: #eef2ff;
+  --accent-600: #4f46e5;
+
+  --success-50: #ecfdf5;
+  --success-500: #10b981;
+  --success-700: #047857;
+
+  --warning-50: #fffbeb;
+  --warning-500: #f59e0b;
+  --warning-700: #b45309;
+
+  --danger-50: #fef2f2;
+  --danger-500: #ef4444;
+  --danger-700: #b91c1c;
+
+  --purple-50: #faf5ff;
+  --purple-500: #a855f7;
+  --purple-700: #7e22ce;
+
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.04);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.05);
+
+  --sidebar-width: 270px;
+  --header-height: 70px;
+}
+
+/* Base Styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: #f8fafc;
+  color: var(--slate-800);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* App Layout */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: var(--sidebar-width);
+  background: #ffffff;
+  border-right: 1px solid var(--slate-200);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 40;
+  transition: transform 0.3s ease;
+}
+
+.brand-section {
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid var(--slate-100);
+}
+
+.brand-logo-img {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  box-shadow: var(--shadow-sm);
+  background: #ffffff;
+  padding: 2px;
+  border: 1px solid var(--slate-200);
+}
+
+.brand-title {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--slate-900);
+  line-height: 1.3;
+}
+
+.brand-subtitle {
+  font-size: 0.72rem;
+  color: var(--slate-500);
+  font-weight: 500;
+}
+
+/* Sidebar Navigation */
+.nav-menu {
+  padding: 20px 16px;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nav-section-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--slate-400);
+  padding: 8px 12px 4px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  color: var(--slate-600);
+  font-weight: 500;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+
+.nav-item:hover {
+  background-color: var(--slate-50);
+  color: var(--primary-600);
+}
+
+.nav-item.active {
+  background-color: var(--primary-50);
+  color: var(--primary-700);
+  font-weight: 600;
+  border-color: var(--primary-100);
+}
+
+.nav-item .icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+.nav-item.active .icon {
+  opacity: 1;
+  color: var(--primary-600);
+}
+
+.nav-badge {
+  margin-left: auto;
+  background-color: var(--primary-500);
+  color: #fff;
+  font-size: 0.72rem;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+}
+
+.nav-badge.warning {
+  background-color: var(--warning-500);
+}
+
+.sidebar-footer {
+  padding: 16px;
+  border-top: 1px solid var(--slate-100);
+  background: var(--slate-50);
+}
+
+.quick-stats-pill {
+  background: #fff;
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Main Content Area */
+.main-wrapper {
+  margin-left: var(--sidebar-width);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Header */
+.top-header {
+  height: var(--header-height);
+  background: #ffffff;
+  border-bottom: 1px solid var(--slate-200);
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  backdrop-filter: blur(8px);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-title-wrapper h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--slate-900);
+}
+
+.header-title-wrapper p {
+  font-size: 0.8rem;
+  color: var(--slate-500);
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  color: var(--slate-700);
+  border-radius: var(--radius-md);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.live-time-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--slate-100);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  color: var(--slate-700);
+  font-weight: 500;
+}
+
+.header-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--primary-700), var(--primary-900));
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: #ffffff;
+  border: 1px solid var(--slate-300);
+  color: var(--slate-700);
+}
+
+.btn-outline:hover {
+  background: var(--slate-50);
+  border-color: var(--slate-400);
+  color: var(--slate-900);
+}
+
+.btn-success {
+  background: var(--success-500);
+  color: #fff;
+}
+.btn-success:hover {
+  background: var(--success-700);
+}
+
+.btn-danger {
+  background: var(--danger-500);
+  color: #fff;
+}
+.btn-danger:hover {
+  background: var(--danger-700);
+}
+
+/* Page Content View */
+.content-area {
+  padding: 28px 32px 60px;
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.view-section {
+  display: none;
+  animation: fadeIn 0.25s ease-in-out;
+}
+
+.view-section.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Stats Cards Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.stat-card {
+  background: #ffffff;
+  border-radius: var(--radius-xl);
+  padding: 20px 22px;
+  border: 1px solid var(--slate-200);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--slate-300);
+}
+
+.stat-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.stat-card.blue::after { background: var(--primary-500); }
+.stat-card.green::after { background: var(--success-500); }
+.stat-card.amber::after { background: var(--warning-500); }
+.stat-card.purple::after { background: var(--purple-500); }
+.stat-card.rose::after { background: var(--danger-500); }
+
+.stat-info .stat-label {
+  font-size: 0.85rem;
+  color: var(--slate-500);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.stat-info .stat-value {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  line-height: 1.2;
+}
+
+.stat-info .stat-desc {
+  font-size: 0.76rem;
+  color: var(--slate-500);
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stat-icon.blue { background-color: var(--primary-50); color: var(--primary-600); }
+.stat-icon.green { background-color: var(--success-50); color: var(--success-700); }
+.stat-icon.amber { background-color: var(--warning-50); color: var(--warning-700); }
+.stat-icon.purple { background-color: var(--purple-50); color: var(--purple-700); }
+.stat-icon.rose { background-color: var(--danger-50); color: var(--danger-700); }
+
+/* Charts & Analytics Row */
+.charts-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+@media (max-width: 1080px) {
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chart-card {
+  background: #ffffff;
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-xl);
+  padding: 22px 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.chart-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--slate-900);
+}
+
+.chart-subtitle {
+  font-size: 0.78rem;
+  color: var(--slate-500);
+}
+
+/* Custom CSS/SVG Charts */
+.chart-container {
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bar-chart-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 14px;
+  gap: 12px;
+}
+
+.bar-label {
+  width: 140px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--slate-700);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bar-track {
+  flex: 1;
+  background-color: var(--slate-100);
+  height: 22px;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #fff;
+  min-width: 24px;
+}
+
+.bar-val {
+  width: 45px;
+  text-align: right;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--slate-800);
+}
+
+/* Donut Chart / Status breakdown */
+.donut-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.donut-svg-container {
+  width: 170px;
+  height: 170px;
+  position: relative;
+}
+
+.donut-center-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.donut-center-number {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  line-height: 1;
+}
+
+.donut-center-label {
+  font-size: 0.72rem;
+  color: var(--slate-500);
+  margin-top: 4px;
+}
+
+.donut-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-width: 140px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.82rem;
+}
+
+.legend-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+/* Card & Table Component */
+.panel-card {
+  background: #ffffff;
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.panel-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--slate-200);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.panel-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--slate-900);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Search and Filters Bar */
+.filter-bar {
+  padding: 16px 24px;
+  background-color: var(--slate-50);
+  border-bottom: 1px solid var(--slate-200);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.search-box {
+  position: relative;
+  flex: 1;
+  min-width: 260px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 9px 14px 9px 38px;
+  border: 1px solid var(--slate-300);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 0.88rem;
+  background-color: #ffffff;
+  color: var(--slate-800);
+  outline: none;
+  transition: all 0.2s;
+}
+
+.search-box input:focus {
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: var(--slate-400);
+  pointer-events: none;
+}
+
+.filter-select {
+  padding: 9px 14px;
+  border: 1px solid var(--slate-300);
+  border-radius: var(--radius-md);
+  background-color: #ffffff;
+  font-family: inherit;
+  font-size: 0.86rem;
+  color: var(--slate-700);
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-select:focus {
+  border-color: var(--primary-500);
+}
+
+/* View Mode Toggles (Table / Kanban) */
+.view-toggle-group {
+  display: flex;
+  background-color: var(--slate-200);
+  border-radius: var(--radius-md);
+  padding: 3px;
+  gap: 2px;
+}
+
+.view-toggle-btn {
+  border: none;
+  background: transparent;
+  padding: 6px 12px;
+  border-radius: calc(var(--radius-md) - 3px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--slate-600);
+  transition: all 0.15s ease;
+}
+
+.view-toggle-btn.active {
+  background-color: #ffffff;
+  color: var(--primary-700);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Status Filter Tabs */
+.status-tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 8px 24px;
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--slate-200);
+}
+
+.status-tab {
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--slate-600);
+  cursor: pointer;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-tab:hover {
+  background-color: var(--slate-100);
+}
+
+.status-tab.active {
+  background-color: var(--slate-900);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.status-tab-count {
+  font-size: 0.72rem;
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+  background: rgba(0,0,0,0.08);
+}
+
+.status-tab.active .status-tab-count {
+  background: rgba(255,255,255,0.25);
+  color: #fff;
+}
+
+/* Table Styles */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.88rem;
+}
+
+.data-table th {
+  background-color: var(--slate-50);
+  color: var(--slate-600);
+  font-weight: 600;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--slate-200);
+  white-space: nowrap;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.data-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--slate-100);
+  vertical-align: middle;
+}
+
+.data-table tr:hover td {
+  background-color: #f8fafc;
+}
+
+/* Status Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.badge-new { background-color: var(--primary-50); color: var(--primary-700); }
+.badge-new .badge-dot { background-color: var(--primary-600); }
+
+.badge-followup { background-color: var(--warning-50); color: var(--warning-700); }
+.badge-followup .badge-dot { background-color: var(--warning-500); }
+
+.badge-visit { background-color: var(--purple-50); color: var(--purple-700); }
+.badge-visit .badge-dot { background-color: var(--purple-500); }
+
+.badge-test { background-color: #e0f2fe; color: #0369a1; }
+.badge-test .badge-dot { background-color: #0284c7; }
+
+.badge-enrolled { background-color: var(--success-50); color: var(--success-700); }
+.badge-enrolled .badge-dot { background-color: var(--success-500); }
+
+.badge-lost { background-color: var(--danger-50); color: var(--danger-700); }
+.badge-lost .badge-dot { background-color: var(--danger-500); }
+
+/* Quick Action Links in Table */
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-icon-action {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--slate-200);
+  background: #ffffff;
+  color: var(--slate-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-decoration: none;
+}
+
+.btn-icon-action:hover {
+  background-color: var(--slate-100);
+  color: var(--slate-900);
+  border-color: var(--slate-300);
+}
+
+.btn-icon-action.call {
+  color: #059669;
+  border-color: #a7f3d0;
+  background: #ecfdf5;
+}
+.btn-icon-action.call:hover { background: #d1fae5; }
+
+.btn-icon-action.telegram {
+  color: #0284c7;
+  border-color: #bae6fd;
+  background: #f0f9ff;
+}
+.btn-icon-action.telegram:hover { background: #e0f2fe; }
+
+.btn-icon-action.note {
+  color: #d97706;
+  border-color: #fde68a;
+  background: #fffbeb;
+}
+.btn-icon-action.note:hover { background: #fef3c7; }
+
+/* Kanban Board View */
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 18px;
+  padding: 24px;
+  overflow-x: auto;
+  align-items: flex-start;
+}
+
+.kanban-column {
+  background-color: var(--slate-100);
+  border-radius: var(--radius-xl);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 480px;
+}
+
+.kanban-column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 6px 10px;
+  border-bottom: 2px solid rgba(0,0,0,0.06);
+}
+
+.kanban-column-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--slate-800);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.kanban-column-count {
+  background: #ffffff;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--slate-600);
+  box-shadow: var(--shadow-sm);
+}
+
+.kanban-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 100px;
+}
+
+.kanban-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--slate-200);
+  cursor: grab;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.kanban-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--slate-300);
+}
+
+.kanban-card-parent {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--slate-900);
+  margin-bottom: 4px;
+}
+
+.kanban-card-student {
+  font-size: 0.82rem;
+  color: var(--slate-600);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.kanban-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--slate-100);
+  padding-top: 10px;
+  font-size: 0.78rem;
+  color: var(--slate-500);
+}
+
+/* Modals */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+  animation: modalFade 0.2s ease;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+@keyframes modalFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  background: #ffffff;
+  border-radius: var(--radius-2xl);
+  max-width: 760px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--slate-200);
+  animation: modalSlide 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalSlide {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-header {
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--slate-200);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--slate-900);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--slate-400);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: var(--radius-md);
+  transition: all 0.15s ease;
+  line-height: 1;
+}
+
+.modal-close-btn:hover {
+  color: var(--slate-700);
+  background-color: var(--slate-100);
+}
+
+.modal-body {
+  padding: 24px 28px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modal-footer {
+  padding: 16px 28px;
+  border-top: 1px solid var(--slate-200);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  background-color: var(--slate-50);
+  border-bottom-left-radius: var(--radius-2xl);
+  border-bottom-right-radius: var(--radius-2xl);
+}
+
+/* Form Controls */
+.form-section-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--slate-900);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--slate-200);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.form-grid.three-col {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-label {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--slate-700);
+}
+
+.form-label .required {
+  color: var(--danger-500);
+  margin-left: 2px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 9px 13px;
+  border: 1px solid var(--slate-300);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 0.88rem;
+  color: var(--slate-800);
+  background-color: #ffffff;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.form-control:focus {
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+textarea.form-control {
+  min-height: 80px;
+  resize: vertical;
+}
+
+/* Timeline & Follow-up Log */
+.timeline {
+  position: relative;
+  padding-left: 24px;
+  margin-top: 16px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background-color: var(--slate-200);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -24px;
+  top: 5px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--primary-500);
+  border: 3px solid #ffffff;
+  box-shadow: var(--shadow-sm);
+}
+
+.timeline-content {
+  background-color: var(--slate-50);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+}
+
+.timeline-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.timeline-title {
+  font-weight: 600;
+  font-size: 0.86rem;
+  color: var(--slate-800);
+}
+
+.timeline-time {
+  font-size: 0.74rem;
+  color: var(--slate-500);
+}
+
+.timeline-body {
+  font-size: 0.85rem;
+  color: var(--slate-600);
+}
+
+/* Settings View Styles */
+.settings-section-card {
+  background: #ffffff;
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.settings-section-header {
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--slate-200);
+}
+
+.settings-section-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--slate-900);
+}
+
+.tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.tag-chip {
+  background-color: var(--slate-100);
+  border: 1px solid var(--slate-300);
+  border-radius: var(--radius-full);
+  padding: 5px 12px;
+  font-size: 0.82rem;
+  color: var(--slate-700);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tag-remove-btn {
+  background: none;
+  border: none;
+  color: var(--slate-400);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.tag-remove-btn:hover {
+  color: var(--danger-500);
+}
+
+/* Toast Notifications */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toast {
+  background: var(--slate-900);
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  animation: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: 380px;
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.toast.success { background: #065f46; border-left: 4px solid var(--success-500); }
+.toast.warning { background: #92400e; border-left: 4px solid var(--warning-500); }
+.toast.danger  { background: #991b1b; border-left: 4px solid var(--danger-500); }
+
+/* Print Styles */
+@media print {
+  body {
+    background: #ffffff;
+    color: #000000;
+  }
+  .sidebar, .top-header, .filter-bar, .action-buttons, .header-action-btn, .view-toggle-group, .status-tabs, .mobile-menu-btn {
+    display: none !important;
+  }
+  .main-wrapper {
+    margin-left: 0 !important;
+  }
+  .content-area {
+    padding: 0 !important;
+  }
+  .panel-card {
+    border: none !important;
+    box-shadow: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+}
+
+.print-only {
+  display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  .sidebar.open {
+    transform: translateX(0);
+    box-shadow: var(--shadow-xl);
+  }
+  .main-wrapper {
+    margin-left: 0;
+  }
+  .mobile-menu-btn {
+    display: block;
+  }
+  .top-header {
+    padding: 0 16px;
+  }
+  .content-area {
+    padding: 16px;
+  }
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-grid.three-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================= RBAC & User Management Styles ================= */
+
+/* Role Badges */
+.badge-admin {
+  background-color: #faf5ff;
+  color: #7e22ce;
+  border: 1px solid #e9d5ff;
+}
+.badge-admin .badge-dot { background-color: #9333ea; }
+
+.badge-director {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+.badge-director .badge-dot { background-color: #2563eb; }
+
+.badge-counsellor {
+  background-color: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+.badge-counsellor .badge-dot { background-color: #059669; }
+
+.badge-accountant {
+  background-color: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+.badge-accountant .badge-dot { background-color: #d97706; }
+
+/* Header User Profile Widget */
+.user-profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  background: var(--slate-100);
+  border: 1px solid var(--slate-200);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.user-profile-btn:hover {
+  background: var(--slate-200);
+  border-color: var(--slate-300);
+}
+
+.user-avatar-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-600), var(--primary-800));
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+.user-meta-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.user-name-text {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--slate-900);
+  line-height: 1.2;
+}
+
+.user-role-text {
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+/* Quick Role Switcher Grid */
+.role-switch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.role-switch-card {
+  border: 2px solid var(--slate-200);
+  border-radius: var(--radius-xl);
+  padding: 16px;
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.role-switch-card:hover {
+  border-color: var(--primary-500);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.role-switch-card.active {
+  border-color: var(--primary-600);
+  background-color: var(--primary-50);
+}
+
+.role-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.role-card-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--slate-900);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.role-card-desc {
+  font-size: 0.78rem;
+  color: var(--slate-600);
+  line-height: 1.4;
+}
+
+.role-card-permissions {
+  font-size: 0.72rem;
+  color: var(--slate-500);
+  border-top: 1px dashed var(--slate-200);
+  padding-top: 6px;
+  margin-top: 4px;
+}
+
+/* User Management Table Styles */
+.user-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 6px;
+}
+.user-status-dot.active { background-color: var(--success-500); }
+.user-status-dot.inactive { background-color: var(--danger-500); }
+
+
+</style>
 </head>
 <body>
 
@@ -1090,8 +2606,2778 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/data.js"></script>
-  <script src="js/charts.js"></script>
-  <script src="js/app.js"></script>
+  <script>
+/**
+ * School Inquiry Management System
+ * Data Layer & LocalStorage Manager
+ */
+
+const STORAGE_KEY_INQUIRIES = 'school_inquiries_db_v1';
+const STORAGE_KEY_SETTINGS  = 'school_settings_db_v1';
+const STORAGE_KEY_USERS     = 'school_users_db_v1';
+const STORAGE_KEY_AUTH      = 'school_current_user_v1';
+
+// Role-Based Access Control (RBAC) System
+const ROLES_CONFIG = {
+  admin: {
+    key: 'admin',
+    labelKh: 'Admin System',
+    titleKh: 'អ្នកគ្រប់គ្រងប្រព័ន្ធ (Admin System)',
+    color: '#7c3aed',
+    badgeClass: 'badge-admin',
+    icon: '🛡️',
+    description: 'មានសិទ្ធិពេញលេញលើប្រព័ន្ធទាំងមូល គ្រប់គ្រងអ្នកប្រើប្រាស់ ការកំណត់ និង Backup',
+    permissions: {
+      viewDashboard: true,
+      viewInquiries: true,
+      addInquiry: true,
+      editInquiry: true,
+      deleteInquiry: true,
+      addFollowUp: true,
+      viewKanban: true,
+      viewReminders: true,
+      viewAnalytics: true,
+      exportExcel: true,
+      printSheet: true,
+      manageSettings: true,
+      manageUsers: true,
+      backupRestore: true,
+      clearAllData: true
+    }
+  },
+  director: {
+    key: 'director',
+    labelKh: 'នាយកសាខា',
+    titleKh: 'នាយកសាខា (Branch Director)',
+    color: '#2563eb',
+    badgeClass: 'badge-director',
+    icon: '👔',
+    description: 'មើលឃើញស្ថិតិ និងរបាយការណ៍ទាំងអស់ តាមដានសកម្មភាពបុគ្គលិក នាំចេញ Excel និងកែប្រែទិន្នន័យ',
+    permissions: {
+      viewDashboard: true,
+      viewInquiries: true,
+      addInquiry: true,
+      editInquiry: true,
+      deleteInquiry: false,
+      addFollowUp: true,
+      viewKanban: true,
+      viewReminders: true,
+      viewAnalytics: true,
+      exportExcel: true,
+      printSheet: true,
+      manageSettings: false,
+      manageUsers: false,
+      backupRestore: false,
+      clearAllData: false
+    }
+  },
+  counsellor: {
+    key: 'counsellor',
+    labelKh: 'អ្នកផ្ដល់ព័ត៌មាន',
+    titleKh: 'អ្នកផ្ដល់ព័ត៌មាន / ទទួលភ្ញៀវ (Information / Front Desk)',
+    color: '#059669',
+    badgeClass: 'badge-counsellor',
+    icon: '💁‍♀️',
+    description: 'កត់ត្រាព័ត៌មានអ្នកសួរថ្មី កត់ត្រាតាមដាន (Follow-up) ផ្លាស់ប្តូរដំណាក់កាល Kanban ផ្ញើ Telegram/Call',
+    permissions: {
+      viewDashboard: true,
+      viewInquiries: true,
+      addInquiry: true,
+      editInquiry: true,
+      deleteInquiry: false,
+      addFollowUp: true,
+      viewKanban: true,
+      viewReminders: true,
+      viewAnalytics: false,
+      exportExcel: false,
+      printSheet: true,
+      manageSettings: false,
+      manageUsers: false,
+      backupRestore: false,
+      clearAllData: false
+    }
+  },
+  accountant: {
+    key: 'accountant',
+    labelKh: 'គណនេយ្យ',
+    titleKh: 'គណនេយ្យ (Accountant / Finance)',
+    color: '#d97706',
+    badgeClass: 'badge-accountant',
+    icon: '💰',
+    description: 'ពិនិត្យបញ្ជីអ្នកចុះឈ្មោះរៀនជោគជ័យ (Enrolled) ពិនិត្យថ្លៃសិក្សា មើលស្ថិតិ និងនាំចេញ Excel របាយការណ៍',
+    permissions: {
+      viewDashboard: true,
+      viewInquiries: true,
+      addInquiry: false,
+      editInquiry: false,
+      deleteInquiry: false,
+      addFollowUp: false,
+      viewKanban: true,
+      viewReminders: false,
+      viewAnalytics: true,
+      exportExcel: true,
+      printSheet: true,
+      manageSettings: false,
+      manageUsers: false,
+      backupRestore: false,
+      clearAllData: false
+    }
+  }
+};
+
+const DEFAULT_USERS = [
+  {
+    id: 'user-001',
+    username: 'admin',
+    password: '123',
+    fullName: 'អ្នកគ្រប់គ្រងប្រព័ន្ធ (Admin System)',
+    role: 'admin',
+    branch: 'គ្រប់សាខាទាំងអស់ (All Branches)',
+    phone: '012 333 444',
+    isActive: true,
+    createdAt: '2026-01-01'
+  },
+  {
+    id: 'user-002',
+    username: 'director',
+    password: '123',
+    fullName: 'លោក នាយកសាខា (Branch Director)',
+    role: 'director',
+    branch: 'សាខាទួលគោក (Toul Kork Branch)',
+    phone: '012 555 777',
+    isActive: true,
+    createdAt: '2026-01-10'
+  },
+  {
+    id: 'user-003',
+    username: 'info',
+    password: '123',
+    fullName: 'កញ្ញា សុភា (អ្នកផ្ដល់ព័ត៌មាន)',
+    role: 'counsellor',
+    branch: 'សាខាទួលគោក (Toul Kork Branch)',
+    phone: '098 111 222',
+    isActive: true,
+    createdAt: '2026-02-01'
+  },
+  {
+    id: 'user-004',
+    username: 'accountant',
+    password: '123',
+    fullName: 'អ្នកគ្រូ ចិន្តា (គណនេយ្យ)',
+    role: 'accountant',
+    branch: 'សាខាទួលគោក (Toul Kork Branch)',
+    phone: '093 888 999',
+    isActive: true,
+    createdAt: '2026-02-15'
+  }
+];
+
+const DEFAULT_SETTINGS = {
+  schoolName: "សាលារៀន ហែមតុន (Hampton International School)",
+  schoolPhone: "012 345 678 / 098 765 432",
+  schoolAddress: "រាជធានីភ្នំពេញ, ប្រទេសកម្ពុជា",
+  schoolLogo: "school-logo.png",
+  currency: "$",
+  grades: [
+    "ថ្នាក់បឋមមត្តេយ្យ (Pre-Nursery)",
+    "ថ្នាក់មត្តេយ្យតូច (Nursery)",
+    "ថ្នាក់មត្តេយ្យកម្រិត១ (K1)",
+    "ថ្នាក់មត្តេយ្យកម្រិត២ (K2)",
+    "ថ្នាក់មត្តេយ្យកម្រិត៣ (K3)",
+    "បឋមសិក្សា ថ្នាក់ទី១ (Primary 1)",
+    "បឋមសិក្សា ថ្នាក់ទី២ (Primary 2)",
+    "បឋមសិក្សា ថ្នាក់ទី៣ (Primary 3)",
+    "បឋមសិក្សា ថ្នាក់ទី៤ (Primary 4)",
+    "បឋមសិក្សា ថ្នាក់ទី៥ (Primary 5)",
+    "បឋមសិក្សា ថ្នាក់ទី៦ (Primary 6)",
+    "អនុវិទ្យាល័យ (Secondary 7-9)",
+    "វិទ្យាល័យ (High School 10-12)",
+    "ភាសាអង់គ្លេសទូទៅ (GEP/ESL)",
+    "ភាសាចិន (Chinese)",
+    "វគ្គបណ្តុះបណ្តាលខ្លីៗ (Short Courses)"
+  ],
+  sources: [
+    "Facebook Page",
+    "TikTok",
+    "Telegram",
+    "ទូរស័ព្ទផ្ទាល់ (Phone Call)",
+    "មកសាលាផ្ទាល់ (Walk-in)",
+    "សិស្សចាស់/មិត្តភក្តិណែនាំ (Referral)",
+    "បដាផ្សព្វផ្សាយ (Signboard/Banner)",
+    "ផ្សេងៗ (Other)"
+  ],
+  counsellors: [
+    "កញ្ញា សុភា (Sophea)",
+    "លោក វិសាល (Visal)",
+    "អ្នកគ្រូ ចិន្តា (Chinda)",
+    "លោកគ្រូ រតនា (Rattana)",
+    "បុគ្គលិកទទួលភ្ញៀវ (Front Desk Receptionist)"
+  ],
+  shifts: [
+    "ពេលព្រឹក (Morning 7:30 - 11:00)",
+    "ពេលរសៀល (Afternoon 1:30 - 5:00)",
+    "ពេញមួយថ្ងៃ (Full-Day 7:30 - 5:00)",
+    "វេនយប់/ចុងសប្តាហ៍ (Evening/Weekend)"
+  ]
+};
+
+const STATUS_CONFIG = {
+  new: {
+    key: 'new',
+    labelKh: 'ព័ត៌មានថ្មី',
+    labelEn: 'New Inquiry',
+    badgeClass: 'badge-new',
+    color: '#3b82f6'
+  },
+  followup: {
+    key: 'followup',
+    labelKh: 'កំពុងតាមដាន',
+    labelEn: 'In Follow-up',
+    badgeClass: 'badge-followup',
+    color: '#f59e0b'
+  },
+  visit: {
+    key: 'visit',
+    labelKh: 'ណាត់ទស្សនកិច្ច',
+    labelEn: 'Tour/Visit',
+    badgeClass: 'badge-visit',
+    color: '#a855f7'
+  },
+  test: {
+    key: 'test',
+    labelKh: 'ធ្វើតេស្តសមត្ថភាព',
+    labelEn: 'Placement Test',
+    badgeClass: 'badge-test',
+    color: '#0284c7'
+  },
+  enrolled: {
+    key: 'enrolled',
+    labelKh: 'ចុះឈ្មោះជោគជ័យ',
+    labelEn: 'Enrolled 🎉',
+    badgeClass: 'badge-enrolled',
+    color: '#10b981'
+  },
+  lost: {
+    key: 'lost',
+    labelKh: 'មិនទាន់ចាប់អារម្មណ៍',
+    labelEn: 'Lost / Dropped',
+    badgeClass: 'badge-lost',
+    color: '#ef4444'
+  }
+};
+
+// Realistic Demo Data for School Inquiries
+function getSampleInquiries() {
+  const today = new Date().toISOString().split('T')[0];
+  
+  // Helper to create dates offset by days
+  function getDateOffset(days) {
+    const d = new Date();
+    d.setDate(d.getDate() + days);
+    return d.toISOString().split('T')[0];
+  }
+
+  return [
+    {
+      id: "INQ-2026-001",
+      createdAt: getDateOffset(-5),
+      time: "09:30",
+      parentName: "សុខ សុវណ្ណារ៉ា",
+      parentPhone: "012889977",
+      parentPhone2: "098776655",
+      telegram: "012889977",
+      relation: "ឳពុក (Father)",
+      address: "ខណ្ឌទួលគោក, រាជធានីភ្នំពេញ",
+      studentNameKh: "សុខ ច័ន្ទមករា",
+      studentNameEn: "Sok Chanmakara",
+      gender: "ប្រុស",
+      dob: "2020-04-12",
+      age: 6,
+      currentSchool: "សាលាមត្តេយ្យរដ្ឋ",
+      targetGrade: "បឋមសិក្សា ថ្នាក់ទី១ (Primary 1)",
+      targetShift: "ពេញមួយថ្ងៃ (Full-Day 7:30 - 5:00)",
+      source: "Facebook Page",
+      counsellor: "កញ្ញា សុភា (Sophea)",
+      interestAreas: "កម្មវិធីភាសាអង់គ្លេស និងអាហារដ្ឋាន",
+      initialNotes: "ឳពុកសួរចង់ដឹងតម្លៃសិក្សាប្រចាំឆ្នាំ និងរថយន្តដឹកជញ្ជូនសិស្ស",
+      status: "followup",
+      nextFollowUpDate: today,
+      followUpLogs: [
+        {
+          id: "log-1",
+          date: getDateOffset(-5),
+          time: "10:00",
+          method: "Facebook Messenger",
+          counsellor: "កញ្ញា សុភា (Sophea)",
+          summary: "បានផ្ញើតារាងតម្លៃសិក្សា និងកាលវិភាគសិក្សាជូនតាមឆាត",
+          nextAction: "ទូរស័ព្ទសួរបញ្ជាក់ក្រោយ 3 ថ្ងៃ"
+        },
+        {
+          id: "log-2",
+          date: getDateOffset(-2),
+          time: "14:15",
+          method: "ទូរស័ព្ទ (Phone Call)",
+          counsellor: "កញ្ញា សុភា (Sophea)",
+          summary: "ឳពុកបានពិនិត្យតម្លៃហើយ ពេញចិត្តកម្មវិធីសិក្សា ចង់មកមើលសាលាផ្ទាល់",
+          nextAction: "រង់ចាំការណាត់មកទស្សនកិច្ច"
+        }
+      ]
+    },
+    {
+      id: "INQ-2026-002",
+      createdAt: getDateOffset(-4),
+      time: "14:20",
+      parentName: "កែវ ចរិយា",
+      parentPhone: "093445566",
+      parentPhone2: "",
+      telegram: "chariya_keo",
+      relation: "ម្តាយ (Mother)",
+      address: "ខណ្ឌបឹងកេងកង, រាជធានីភ្នំពេញ",
+      studentNameKh: "លី មុនីរ័ត្ន",
+      studentNameEn: "Ly Monyrath",
+      gender: "ស្រី",
+      dob: "2022-08-15",
+      age: 3,
+      currentSchool: "នៅផ្ទះ",
+      targetGrade: "ថ្នាក់មត្តេយ្យតូច (Nursery)",
+      targetShift: "ពេលព្រឹក (Morning 7:30 - 11:00)",
+      source: "មកសាលាផ្ទាល់ (Walk-in)",
+      counsellor: "អ្នកគ្រូ ចិន្តា (Chinda)",
+      interestAreas: "ការថែទាំកូនតូច បន្ទប់គេង និងអនាម័យ",
+      initialNotes: "ម្តាយបានចូលមកសួរព័ត៌មានផ្ទាល់ ចង់ដាក់កូនរៀនចាប់ពីខែក្រោយ",
+      status: "visit",
+      nextFollowUpDate: today,
+      followUpLogs: [
+        {
+          id: "log-3",
+          date: getDateOffset(-4),
+          time: "14:40",
+          method: "ជួបផ្ទាល់ (In-Person)",
+          counsellor: "អ្នកគ្រូ ចិន្តា (Chinda)",
+          summary: "បាននាំដើរមើលបន្ទប់រៀនមត្តេយ្យ កន្លែងលេងក្មេង និងបន្ទប់ទឹក",
+          nextAction: "ណាត់មកចុះឈ្មោះ និងវាស់កម្ពស់ឯកសណ្ឋាន"
+        }
+      ]
+    },
+    {
+      id: "INQ-2026-003",
+      createdAt: getDateOffset(-8),
+      time: "11:00",
+      parentName: "ឡុង គឹមសួរ",
+      parentPhone: "0889988776",
+      parentPhone2: "017223344",
+      telegram: "0889988776",
+      relation: "ឳពុក (Father)",
+      address: "ខណ្ឌសែនសុខ, រាជធានីភ្នំពេញ",
+      studentNameKh: "ឡុង វឌ្ឍនៈ",
+      studentNameEn: "Long Vathana",
+      gender: "ប្រុស",
+      dob: "2018-02-10",
+      age: 8,
+      currentSchool: "សាលាឯកជនក្បែរផ្ទះ",
+      targetGrade: "បឋមសិក្សា ថ្នាក់ទី៣ (Primary 3)",
+      targetShift: "ពេញមួយថ្ងៃ (Full-Day 7:30 - 5:00)",
+      source: "សិស្សចាស់/មិត្តភក្តិណែនាំ (Referral)",
+      counsellor: "លោក វិសាល (Visal)",
+      interestAreas: "កម្មវិធីភាសាអង់គ្លេស STEM និងកីឡាហែលទឹក",
+      initialNotes: "មិត្តភក្តិដែលមានកូនរៀននៅទីនេះណែនាំមក",
+      status: "enrolled",
+      nextFollowUpDate: "",
+      followUpLogs: [
+        {
+          id: "log-4",
+          date: getDateOffset(-8),
+          time: "11:15",
+          method: "ទូរស័ព្ទ (Phone Call)",
+          counsellor: "លោក វិសាល (Visal)",
+          summary: "បានពិភាក្សាលម្អិតពីការផ្ទេរសាលា",
+          nextAction: "មកធ្វើតេស្តសមត្ថភាពភាសាអង់គ្លេស"
+        },
+        {
+          id: "log-5",
+          date: getDateOffset(-3),
+          time: "10:30",
+          method: "ជួបផ្ទាល់ (In-Person)",
+          counsellor: "លោក វិសាល (Visal)",
+          summary: "សិស្សបានធ្វើតេស្តជាប់កម្រិត Level 3! មាតាបិតាបានបង់ប្រាក់ចុះឈ្មោះរួចរាល់!",
+          nextAction: "រួចរាល់ - ចូលរៀននៅដើមខែ"
+        }
+      ]
+    },
+    {
+      id: "INQ-2026-004",
+      createdAt: getDateOffset(-1),
+      time: "16:45",
+      parentName: "សេង ស្រីពៅ",
+      parentPhone: "070112233",
+      parentPhone2: "",
+      telegram: "070112233",
+      relation: "ម្តាយ (Mother)",
+      address: "ខណ្ឌជ្រោយចង្វារ, រាជធានីភ្នំពេញ",
+      studentNameKh: "ម៉េង ដារ៉ូ",
+      studentNameEn: "Meng Daro",
+      gender: "ប្រុស",
+      dob: "2021-11-05",
+      age: 4,
+      currentSchool: "មិនទាន់ចូលរៀន",
+      targetGrade: "ថ្នាក់មត្តេយ្យកម្រិត១ (K1)",
+      targetShift: "ពេលព្រឹក (Morning 7:30 - 11:00)",
+      source: "TikTok",
+      counsellor: "កញ្ញា សុភា (Sophea)",
+      interestAreas: "វីដេអូសកម្មភាពកុមារលើ TikTok គួរឱ្យស្រលាញ់",
+      initialNotes: "ឃើញវីដេអូសិស្សរៀនភាសាអង់គ្លេសលើ TikTok ហើយឆាតមកសួរ",
+      status: "new",
+      nextFollowUpDate: getDateOffset(1),
+      followUpLogs: [
+        {
+          id: "log-6",
+          date: getDateOffset(-1),
+          time: "17:00",
+          method: "TikTok / Telegram",
+          counsellor: "កញ្ញា សុភា (Sophea)",
+          summary: "បានទទួលលេខទូរស័ព្ទ និង Telegram ពី TikTok inbox",
+          nextAction: "តេទៅពន្យល់ព័ត៌មានបន្ថែមនៅថ្ងៃស្អែក"
+        }
+      ]
+    },
+    {
+      id: "INQ-2026-005",
+      createdAt: getDateOffset(-10),
+      time: "08:30",
+      parentName: "អ៊ុំ សុវត្ថិ",
+      parentPhone: "017887766",
+      parentPhone2: "",
+      telegram: "017887766",
+      relation: "ឳពុក (Father)",
+      address: "ខណ្ឌមានជ័យ, រាជធានីភ្នំពេញ",
+      studentNameKh: "អ៊ុំ ពិសិដ្ឋ",
+      studentNameEn: "Oum Piseth",
+      gender: "ប្រុស",
+      dob: "2015-09-20",
+      age: 11,
+      currentSchool: "សាលារដ្ឋ",
+      targetGrade: "ភាសាអង់គ្លេសទូទៅ (GEP/ESL)",
+      targetShift: "ពេលរសៀល (Afternoon 1:30 - 5:00)",
+      source: "ទូរស័ព្ទផ្ទាល់ (Phone Call)",
+      counsellor: "លោកគ្រូ រតនា (Rattana)",
+      interestAreas: "វគ្គភាសាអង់គ្លេសក្រៅម៉ោង និងកុំព្យូទ័រ",
+      initialNotes: "ចង់ឱ្យកូនរៀនភាសាអង់គ្លេសបន្ថែមពេលរសៀល",
+      status: "test",
+      nextFollowUpDate: getDateOffset(2),
+      followUpLogs: [
+        {
+          id: "log-7",
+          date: getDateOffset(-10),
+          time: "08:45",
+          method: "ទូរស័ព្ទ (Phone Call)",
+          counsellor: "លោកគ្រូ រតនា (Rattana)",
+          summary: "បានណែនាំកម្មវិធី GEP Part-time",
+          nextAction: "ណាត់មកធ្វើ Placement Test"
+        }
+      ]
+    },
+    {
+      id: "INQ-2026-006",
+      createdAt: getDateOffset(-15),
+      time: "15:10",
+      parentName: "ហេង ធីតា",
+      parentPhone: "0965544332",
+      parentPhone2: "",
+      telegram: "thida_heng",
+      relation: "ម្តាយ (Mother)",
+      address: "ខណ្ឌដង្កោ, រាជធានីភ្នំពេញ",
+      studentNameKh: "ហេង សុជាតា",
+      studentNameEn: "Heng Socheata",
+      gender: "ស្រី",
+      dob: "2019-06-30",
+      age: 7,
+      currentSchool: "សាលាផ្សេង",
+      targetGrade: "បឋមសិក្សា ថ្នាក់ទី២ (Primary 2)",
+      targetShift: "ពេញមួយថ្ងៃ (Full-Day 7:30 - 5:00)",
+      source: "បដាផ្សព្វផ្សាយ (Signboard/Banner)",
+      counsellor: "លោក វិសាល (Visal)",
+      interestAreas: "រថយន្តដឹកជញ្ជូន",
+      initialNotes: "ផ្ទះនៅឆ្ងាយពីសាលា សួររកសេវារថយន្តក្រុងដឹកដល់មុខផ្ទះ",
+      status: "lost",
+      nextFollowUpDate: "",
+      followUpLogs: [
+        {
+          id: "log-8",
+          date: getDateOffset(-15),
+          time: "15:30",
+          method: "ទូរស័ព្ទ (Phone Call)",
+          counsellor: "លោក វិសាល (Visal)",
+          summary: "សាលាមិនទាន់មានខ្សែរថយន្តទៅដល់តំបន់ផ្ទះគាត់",
+          nextAction: "មិនអាចចុះឈ្មោះបានដោយសារការធ្វើដំណើរឆ្ងាយពេក"
+        }
+      ]
+    }
+  ];
+}
+
+class DataManager {
+  static getSettings() {
+    try {
+      const data = localStorage.getItem(STORAGE_KEY_SETTINGS);
+      if (!data) {
+        this.saveSettings(DEFAULT_SETTINGS);
+        return DEFAULT_SETTINGS;
+      }
+      return JSON.parse(data);
+    } catch (e) {
+      console.error("Error reading settings", e);
+      return DEFAULT_SETTINGS;
+    }
+  }
+
+  static saveSettings(settings) {
+    try {
+      localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(settings));
+      return true;
+    } catch (e) {
+      console.error("Error saving settings", e);
+      return false;
+    }
+  }
+
+  static getInquiries() {
+    try {
+      const data = localStorage.getItem(STORAGE_KEY_INQUIRIES);
+      if (!data) {
+        const demoData = getSampleInquiries();
+        this.saveInquiries(demoData);
+        return demoData;
+      }
+      return JSON.parse(data);
+    } catch (e) {
+      console.error("Error reading inquiries", e);
+      return [];
+    }
+  }
+
+  static saveInquiries(inquiries) {
+    try {
+      localStorage.setItem(STORAGE_KEY_INQUIRIES, JSON.stringify(inquiries));
+      return true;
+    } catch (e) {
+      console.error("Error saving inquiries", e);
+      return false;
+    }
+  }
+
+  static addInquiry(item) {
+    const list = this.getInquiries();
+    if (!item.id) {
+      const year = new Date().getFullYear();
+      const count = list.length + 1;
+      item.id = `INQ-${year}-${String(count).padStart(3, '0')}`;
+    }
+    if (!item.createdAt) {
+      item.createdAt = new Date().toISOString().split('T')[0];
+    }
+    if (!item.followUpLogs) {
+      item.followUpLogs = [];
+    }
+    list.unshift(item);
+    this.saveInquiries(list);
+    return item;
+  }
+
+  static updateInquiry(id, updates) {
+    const list = this.getInquiries();
+    const idx = list.findIndex(x => x.id === id);
+    if (idx !== -1) {
+      list[idx] = { ...list[idx], ...updates, updatedAt: new Date().toISOString() };
+      this.saveInquiries(list);
+      return list[idx];
+    }
+    return null;
+  }
+
+  static deleteInquiry(id) {
+    let list = this.getInquiries();
+    list = list.filter(x => x.id !== id);
+    this.saveInquiries(list);
+    return true;
+  }
+
+  static addFollowUpNote(inquiryId, note) {
+    const list = this.getInquiries();
+    const item = list.find(x => x.id === inquiryId);
+    if (item) {
+      if (!item.followUpLogs) item.followUpLogs = [];
+      const newLog = {
+        id: 'log-' + Date.now(),
+        date: note.date || new Date().toISOString().split('T')[0],
+        time: note.time || new Date().toTimeString().substring(0, 5),
+        method: note.method || 'ទូរស័ព្ទ (Phone Call)',
+        counsellor: note.counsellor || 'បុគ្គលិក',
+        summary: note.summary || '',
+        nextAction: note.nextAction || ''
+      };
+      item.followUpLogs.push(newLog);
+
+      if (note.newStatus) {
+        item.status = note.newStatus;
+      }
+      if (note.nextFollowUpDate !== undefined) {
+        item.nextFollowUpDate = note.nextFollowUpDate;
+      }
+
+      this.saveInquiries(list);
+      return newLog;
+    }
+    return null;
+  }
+
+  static resetToDemo() {
+    const demo = getSampleInquiries();
+    this.saveInquiries(demo);
+    this.saveSettings(DEFAULT_SETTINGS);
+    return demo;
+  }
+
+  static clearAll() {
+    this.saveInquiries([]);
+    return true;
+  }
+
+  // Export to CSV with UTF-8 BOM so Excel opens Khmer characters correctly
+  static exportToCSV() {
+    const inquiries = this.getInquiries();
+    if (inquiries.length === 0) {
+      alert("មិនមានទិន្នន័យសម្រាប់នាំចេញទេ!");
+      return;
+    }
+
+    const headers = [
+      "លេខកូដ (ID)",
+      "កាលបរិច្ឆេទសួរ (Date)",
+      "ម៉ោង (Time)",
+      "ឈ្មោះអាណាព្យាបាល (Parent Name)",
+      "លេខទូរស័ព្ទ (Phone)",
+      "លេខទូរស័ព្ទទី២ (Phone 2)",
+      "Telegram",
+      "ទំនាក់ទំនង (Relation)",
+      "អាសយដ្ឋាន (Address)",
+      "ឈ្មោះសិស្សខ្មែរ (Student KH)",
+      "ឈ្មោះសិស្សឡាតាំង (Student EN)",
+      "ភេទ (Gender)",
+      "ថ្ងៃកំណើត (DOB)",
+      "អាយុ (Age)",
+      "សាលាចាស់ (Current School)",
+      "ថ្នាក់ចាប់អារម្មណ៍ (Target Grade)",
+      "វេនសិក្សា (Target Shift)",
+      "ប្រភពទីផ្សារ (Source)",
+      "បុគ្គលិកប្រឹក្សា (Counsellor)",
+      "ស្ថានភាព (Status)",
+      "ថ្ងៃតាមដានបន្ទាប់ (Next Follow-up)",
+      "ចំនួនដងតាមដាន (Follow-up Count)",
+      "កំណត់ចំណាំដំបូង (Notes)"
+    ];
+
+    const rows = inquiries.map(item => [
+      item.id,
+      item.createdAt,
+      item.time || "",
+      item.parentName,
+      `'${item.parentPhone}`,
+      item.parentPhone2 ? `'${item.parentPhone2}` : "",
+      item.telegram || "",
+      item.relation || "",
+      `"${(item.address || '').replace(/"/g, '""')}"`,
+      `"${(item.studentNameKh || '').replace(/"/g, '""')}"`,
+      `"${(item.studentNameEn || '').replace(/"/g, '""')}"`,
+      item.gender || "",
+      item.dob || "",
+      item.age || "",
+      `"${(item.currentSchool || '').replace(/"/g, '""')}"`,
+      `"${(item.targetGrade || '').replace(/"/g, '""')}"`,
+      `"${(item.targetShift || '').replace(/"/g, '""')}"`,
+      `"${(item.source || '').replace(/"/g, '""')}"`,
+      `"${(item.counsellor || '').replace(/"/g, '""')}"`,
+      STATUS_CONFIG[item.status] ? STATUS_CONFIG[item.status].labelKh : item.status,
+      item.nextFollowUpDate || "",
+      item.followUpLogs ? item.followUpLogs.length : 0,
+      `"${(item.initialNotes || '').replace(/"/g, '""')}"`
+    ]);
+
+    const csvContent = "\uFEFF" + [
+      headers.join(","),
+      ...rows.map(r => r.join(","))
+    ].join("\r\n");
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    const today = new Date().toISOString().split('T')[0];
+    link.setAttribute("href", url);
+    link.setAttribute("download", `school_inquiries_${today}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }
+
+  // Export database backup as JSON
+  static exportBackupJSON() {
+    const data = {
+      backupDate: new Date().toISOString(),
+      version: "1.0",
+      settings: this.getSettings(),
+      inquiries: this.getInquiries()
+    };
+    const jsonStr = JSON.stringify(data, null, 2);
+    const blob = new Blob([jsonStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    const today = new Date().toISOString().split('T')[0];
+    link.setAttribute("href", url);
+    link.setAttribute("download", `school_crm_backup_${today}.json`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }
+
+  // Restore database backup from JSON file
+  static importBackupJSON(fileContent) {
+    try {
+      const data = JSON.parse(fileContent);
+      if (Array.isArray(data.inquiries)) {
+        this.saveInquiries(data.inquiries);
+      }
+      if (data.settings && typeof data.settings === 'object') {
+        this.saveSettings(data.settings);
+      }
+      return true;
+    } catch (e) {
+      console.error("Invalid backup file", e);
+      return false;
+    }
+  }
+}
+
+// Authentication & Role-Based Access Control Manager
+class AuthManager {
+  static getUsers() {
+    try {
+      const data = localStorage.getItem(STORAGE_KEY_USERS);
+      if (!data) {
+        this.saveUsers(DEFAULT_USERS);
+        return DEFAULT_USERS;
+      }
+      return JSON.parse(data);
+    } catch (e) {
+      console.error("Error reading users", e);
+      return DEFAULT_USERS;
+    }
+  }
+
+  static saveUsers(users) {
+    try {
+      localStorage.setItem(STORAGE_KEY_USERS, JSON.stringify(users));
+      return true;
+    } catch (e) {
+      console.error("Error saving users", e);
+      return false;
+    }
+  }
+
+  static getCurrentUser() {
+    try {
+      const data = localStorage.getItem(STORAGE_KEY_AUTH);
+      if (!data) {
+        // Default to admin initially for smooth onboarding
+        const defaultUser = DEFAULT_USERS[0];
+        this.setCurrentUser(defaultUser);
+        return defaultUser;
+      }
+      return JSON.parse(data);
+    } catch (e) {
+      console.error("Error reading current user", e);
+      return DEFAULT_USERS[0];
+    }
+  }
+
+  static setCurrentUser(user) {
+    try {
+      localStorage.setItem(STORAGE_KEY_AUTH, JSON.stringify(user));
+      return true;
+    } catch (e) {
+      console.error("Error setting current user", e);
+      return false;
+    }
+  }
+
+  static login(username, password) {
+    const users = this.getUsers();
+    const user = users.find(u => u.username.toLowerCase() === username.toLowerCase().trim());
+    if (!user) {
+      return { success: false, message: 'ឈ្មោះគណនី (Username) មិនត្រឹមត្រូវទេ!' };
+    }
+    if (!user.isActive) {
+      return { success: false, message: 'គណនីនេះត្រូវបានផ្អាកដំណើរការ (Suspended)!' };
+    }
+    if (user.password !== password.trim()) {
+      return { success: false, message: 'ពាក្យសម្ងាត់ (Password) មិនត្រឹមត្រូវទេ!' };
+    }
+
+    this.setCurrentUser(user);
+    return { success: true, user };
+  }
+
+  static quickSwitchRole(roleKey) {
+    const users = this.getUsers();
+    const user = users.find(u => u.role === roleKey && u.isActive);
+    if (user) {
+      this.setCurrentUser(user);
+      return user;
+    }
+    return null;
+  }
+
+  static logout() {
+    localStorage.removeItem(STORAGE_KEY_AUTH);
+    return true;
+  }
+
+  static hasPermission(permissionKey) {
+    const currentUser = this.getCurrentUser();
+    if (!currentUser || !currentUser.role) return false;
+
+    const roleCfg = ROLES_CONFIG[currentUser.role];
+    if (!roleCfg || !roleCfg.permissions) return false;
+
+    return !!roleCfg.permissions[permissionKey];
+  }
+
+  static addUser(userData) {
+    const users = this.getUsers();
+    if (users.some(u => u.username.toLowerCase() === userData.username.toLowerCase().trim())) {
+      return { success: false, message: 'ឈ្មោះគណនីនេះមានរួចហើយ សូមជ្រើសរើសឈ្មោះផ្សេង!' };
+    }
+
+    const newUser = {
+      id: 'user-' + Date.now(),
+      username: userData.username.trim(),
+      password: userData.password || '123',
+      fullName: userData.fullName.trim(),
+      role: userData.role || 'counsellor',
+      branch: userData.branch || 'សាខាទូទៅ',
+      phone: userData.phone || '',
+      isActive: true,
+      createdAt: new Date().toISOString().split('T')[0]
+    };
+
+    users.push(newUser);
+    this.saveUsers(users);
+    return { success: true, user: newUser };
+  }
+
+  static updateUser(id, updates) {
+    const users = this.getUsers();
+    const idx = users.findIndex(u => u.id === id);
+    if (idx !== -1) {
+      users[idx] = { ...users[idx], ...updates, updatedAt: new Date().toISOString() };
+      this.saveUsers(users);
+
+      // If updating currently logged in user, refresh session
+      const cur = this.getCurrentUser();
+      if (cur && cur.id === id) {
+        this.setCurrentUser(users[idx]);
+      }
+      return { success: true, user: users[idx] };
+    }
+    return { success: false, message: 'រកមិនឃើញគណនីនេះទេ!' };
+  }
+
+  static deleteUser(id) {
+    let users = this.getUsers();
+    const target = users.find(u => u.id === id);
+    if (!target) return { success: false, message: 'រកមិនឃើញគណនីនេះទេ!' };
+
+    if (target.username === 'admin') {
+      return { success: false, message: 'មិនអាចលុបគណនីមេ Admin បានទេ!' };
+    }
+
+    users = users.filter(u => u.id !== id);
+    this.saveUsers(users);
+    return { success: true };
+  }
+}
+
+/**
+ * School Inquiry Management System
+ * Offline Pure SVG & HTML5 Charts Engine
+ */
+
+class ChartRenderer {
+  // Render Marketing Channel Sources Bar Chart
+  static renderSourceChart(containerId, inquiries) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    if (!inquiries || inquiries.length === 0) {
+      container.innerHTML = '<div style="text-align: center; color: #94a3b8; padding: 40px 0;">មិនទាន់មានទិន្នន័យគ្រប់គ្រាន់</div>';
+      return;
+    }
+
+    // Count by source
+    const counts = {};
+    inquiries.forEach(item => {
+      const src = item.source || 'ផ្សេងៗ (Other)';
+      counts[src] = (counts[src] || 0) + 1;
+    });
+
+    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+    const maxVal = sorted[0] ? sorted[0][1] : 1;
+    const total = inquiries.length;
+
+    const colors = [
+      '#2563eb', // Blue
+      '#059669', // Emerald
+      '#7c3aed', // Violet
+      '#ea580c', // Orange
+      '#0891b2', // Cyan
+      '#db2777', // Pink
+      '#ca8a04', // Yellow-amber
+      '#475569'  // Slate
+    ];
+
+    let html = '';
+    sorted.forEach(([source, count], idx) => {
+      const percent = Math.round((count / total) * 100);
+      const widthPercent = Math.max(6, Math.round((count / maxVal) * 100));
+      const color = colors[idx % colors.length];
+
+      html += `
+        <div class="bar-chart-row">
+          <div class="bar-label" title="${source}">${source}</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: ${widthPercent}%; background-color: ${color};">
+              ${percent}%
+            </div>
+          </div>
+          <div class="bar-val">${count} នាក់</div>
+        </div>
+      `;
+    });
+
+    container.innerHTML = html;
+  }
+
+  // Render Status Donut Chart (SVG)
+  static renderStatusDonut(containerId, inquiries) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    if (!inquiries || inquiries.length === 0) {
+      container.innerHTML = '<div style="text-align: center; color: #94a3b8; padding: 40px 0;">មិនទាន់មានទិន្នន័យ</div>';
+      return;
+    }
+
+    const counts = {
+      new: 0,
+      followup: 0,
+      visit: 0,
+      test: 0,
+      enrolled: 0,
+      lost: 0
+    };
+
+    inquiries.forEach(item => {
+      const st = item.status || 'new';
+      if (counts[st] !== undefined) {
+        counts[st]++;
+      } else {
+        counts.new++;
+      }
+    });
+
+    const total = inquiries.length;
+    const radius = 60;
+    const circumference = 2 * Math.PI * radius; // ~376.99
+    let accumulatedOffset = 0;
+
+    let svgCircles = '';
+    let legendHtml = '';
+
+    const statusKeys = ['enrolled', 'visit', 'test', 'followup', 'new', 'lost'];
+
+    statusKeys.forEach(key => {
+      const count = counts[key];
+      const cfg = STATUS_CONFIG[key] || { labelKh: key, color: '#94a3b8' };
+      const sliceLength = (count / total) * circumference;
+      const dashArray = `${sliceLength} ${circumference - sliceLength}`;
+      const strokeDashoffset = -accumulatedOffset;
+
+      if (count > 0) {
+        svgCircles += `
+          <circle 
+            cx="85" cy="85" r="${radius}"
+            fill="transparent"
+            stroke="${cfg.color}"
+            stroke-width="22"
+            stroke-dasharray="${dashArray}"
+            stroke-dashoffset="${strokeDashoffset}"
+            transform="rotate(-90 85 85)"
+            style="transition: stroke-dasharray 0.6s ease, stroke-dashoffset 0.6s ease;"
+          />
+        `;
+        accumulatedOffset += sliceLength;
+      }
+
+      legendHtml += `
+        <div class="legend-item">
+          <div class="legend-left">
+            <span class="legend-dot" style="background-color: ${cfg.color}"></span>
+            <span style="color: var(--slate-700)">${cfg.labelKh}</span>
+          </div>
+          <span style="font-weight: 700; color: var(--slate-900);">${count} (${Math.round((count/total)*100)}%)</span>
+        </div>
+      `;
+    });
+
+    const enrolledCount = counts.enrolled;
+    const conversionRate = Math.round((enrolledCount / total) * 100);
+
+    const fullHtml = `
+      <div class="donut-wrapper">
+        <div class="donut-svg-container">
+          <svg width="170" height="170" viewBox="0 0 170 170">
+            <circle cx="85" cy="85" r="${radius}" fill="transparent" stroke="#f1f5f9" stroke-width="22"/>
+            ${svgCircles}
+          </svg>
+          <div class="donut-center-text">
+            <div class="donut-center-number">${conversionRate}%</div>
+            <div class="donut-center-label">អត្រាជោគជ័យ</div>
+          </div>
+        </div>
+        <div class="donut-legend">
+          ${legendHtml}
+        </div>
+      </div>
+    `;
+
+    container.innerHTML = fullHtml;
+  }
+
+  // Render Grade Levels Distribution Bar Chart
+  static renderGradeChart(containerId, inquiries) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    if (!inquiries || inquiries.length === 0) {
+      container.innerHTML = '<div style="text-align: center; color: #94a3b8; padding: 40px 0;">មិនទាន់មានទិន្នន័យ</div>';
+      return;
+    }
+
+    const counts = {};
+    inquiries.forEach(item => {
+      const gr = item.targetGrade || 'មិនទាន់បញ្ជាក់';
+      counts[gr] = (counts[gr] || 0) + 1;
+    });
+
+    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+    const maxVal = sorted[0] ? sorted[0][1] : 1;
+    const total = inquiries.length;
+
+    let html = '';
+    sorted.forEach(([grade, count]) => {
+      const percent = Math.round((count / total) * 100);
+      const widthPercent = Math.max(6, Math.round((count / maxVal) * 100));
+
+      html += `
+        <div class="bar-chart-row">
+          <div class="bar-label" title="${grade}">${grade}</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: ${widthPercent}%; background-color: #6366f1;">
+              ${percent}%
+            </div>
+          </div>
+          <div class="bar-val">${count} នាក់</div>
+        </div>
+      `;
+    });
+
+    container.innerHTML = html;
+  }
+}
+
+/**
+ * School Inquiry Management System
+ * Core Application Controller
+ */
+
+let currentView = 'dashboard';
+let currentTableViewMode = 'table'; // 'table' or 'kanban'
+let statusFilter = 'all';
+let currentEditingId = null;
+let currentFollowUpId = null;
+
+// Initialize Application
+document.addEventListener('DOMContentLoaded', () => {
+  initClock();
+  initAuthUI();
+  initSettingsUI();
+  populateDropdowns();
+  updateRemindersBadge();
+  setupEventListeners();
+  renderCurrentView();
+});
+
+// User & Role Authentication UI Initializer
+function initAuthUI() {
+  const cur = AuthManager.getCurrentUser();
+  if (!cur) return;
+
+  const roleCfg = ROLES_CONFIG[cur.role] || ROLES_CONFIG.counsellor;
+
+  // Header User Display
+  const headerName = document.getElementById('headerUserName');
+  const headerRole = document.getElementById('headerUserRole');
+  const headerAvatar = document.getElementById('headerUserAvatar');
+
+  if (headerName) headerName.textContent = cur.fullName;
+  if (headerRole) {
+    headerRole.textContent = `${roleCfg.icon} ${roleCfg.labelKh}`;
+    headerRole.style.color = roleCfg.color;
+  }
+  if (headerAvatar) {
+    headerAvatar.textContent = (cur.fullName || 'U').charAt(0).toUpperCase();
+    headerAvatar.style.background = `linear-gradient(135deg, ${roleCfg.color}, #1e1b4b)`;
+  }
+
+  // Permission-based Visibility Controls
+  const canAnalytics = AuthManager.hasPermission('viewAnalytics');
+  const canReminders = AuthManager.hasPermission('viewReminders');
+  const canSettings = AuthManager.hasPermission('manageSettings');
+  const canAddInquiry = AuthManager.hasPermission('addInquiry');
+  const canExport = AuthManager.hasPermission('exportExcel');
+
+  const navAnalytics = document.getElementById('nav-analytics');
+  if (navAnalytics) navAnalytics.style.display = canAnalytics ? 'flex' : 'none';
+
+  const navReminders = document.getElementById('nav-reminders');
+  const headerAlertBtn = document.getElementById('headerAlertBtn');
+  if (navReminders) navReminders.style.display = canReminders ? 'flex' : 'none';
+  if (headerAlertBtn) headerAlertBtn.style.display = canReminders ? 'flex' : 'none';
+
+  const navSettings = document.getElementById('nav-settings');
+  const navSectionReports = document.getElementById('navSectionReports');
+  if (navSettings) navSettings.style.display = canSettings ? 'flex' : 'none';
+  if (navSectionReports) navSectionReports.style.display = (canAnalytics || canSettings) ? 'block' : 'none';
+
+  const headerAddBtn = document.getElementById('headerAddInquiryBtn');
+  const tableAddBtn = document.getElementById('tableAddInquiryBtn');
+  const kanbanAddBtn = document.getElementById('kanbanAddInquiryBtn');
+  if (headerAddBtn) headerAddBtn.style.display = canAddInquiry ? 'flex' : 'none';
+  if (tableAddBtn) tableAddBtn.style.display = canAddInquiry ? 'flex' : 'none';
+  if (kanbanAddBtn) kanbanAddBtn.style.display = canAddInquiry ? 'flex' : 'none';
+
+  const filterExportBtn = document.getElementById('filterExportBtn');
+  if (filterExportBtn) filterExportBtn.style.display = canExport ? 'flex' : 'none';
+
+  // If user cannot access current view, redirect to dashboard
+  if (currentView === 'settings' && !canSettings) {
+    switchView('dashboard');
+  } else if (currentView === 'analytics' && !canAnalytics) {
+    switchView('dashboard');
+  } else if (currentView === 'reminders' && !canReminders) {
+    switchView('dashboard');
+  }
+}
+
+// Live Clock in Khmer
+function initClock() {
+  const clockEl = document.getElementById('liveClock');
+  if (!clockEl) return;
+
+  function update() {
+    const now = new Date();
+    const options = { 
+      weekday: 'short', 
+      year: 'numeric', 
+      month: 'short', 
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    };
+    clockEl.textContent = now.toLocaleDateString('km-KH', options);
+  }
+  update();
+  setInterval(update, 30000);
+}
+
+// Navigation switcher
+function switchView(viewName) {
+  // Permission guard
+  if (viewName === 'settings' && !AuthManager.hasPermission('manageSettings')) {
+    showToast('ផ្នែកនេះអនុញ្ញាតសម្រាប់តែ Admin System ប៉ុណ្ណោះ!', 'warning');
+    return;
+  }
+  if (viewName === 'analytics' && !AuthManager.hasPermission('viewAnalytics')) {
+    showToast('គណនីរបស់អ្នកមិនមានសិទ្ធិចូលមើលស្ថិតិ និងរបាយការណ៍ទេ!', 'warning');
+    return;
+  }
+  if (viewName === 'reminders' && !AuthManager.hasPermission('viewReminders')) {
+    showToast('គណនីរបស់អ្នកមិនមានសិទ្ធិចូលមើលការងាររំលឹកទេ!', 'warning');
+    return;
+  }
+
+  currentView = viewName;
+  
+  // Update sidebar active link
+  document.querySelectorAll('.nav-item').forEach(el => {
+    el.classList.toggle('active', el.dataset.view === viewName);
+  });
+
+  // Update view containers
+  document.querySelectorAll('.view-section').forEach(el => {
+    el.classList.toggle('active', el.id === `view-${viewName}`);
+  });
+
+  // Update Page Title
+  const titles = {
+    dashboard: 'ផ្ទាំងគ្រប់គ្រងទូទៅ (Dashboard)',
+    inquiries: 'បញ្ជីអ្នកសួរព័ត៌មាន (Inquiries List)',
+    kanban: 'ក្តារតាមដានដំណាក់កាល (Kanban Pipeline)',
+    reminders: 'ការងាររំលឹកតាមដានថ្ងៃនេះ (Today\'s Tasks)',
+    analytics: 'របាយការណ៍ និងស្ថិតិលម្អិត (Analytics)',
+    settings: 'ការកំណត់ប្រព័ន្ធ (Settings)'
+  };
+  const titleEl = document.getElementById('pageTitle');
+  if (titleEl) titleEl.textContent = titles[viewName] || 'ប្រព័ន្ធគ្រប់គ្រងសាលា';
+
+  // Close mobile sidebar if open
+  closeMobileSidebar();
+
+  renderCurrentView();
+}
+
+function renderCurrentView() {
+  const inquiries = DataManager.getInquiries();
+
+  if (currentView === 'dashboard') {
+    renderDashboard(inquiries);
+  } else if (currentView === 'inquiries') {
+    renderInquiriesTable(inquiries);
+  } else if (currentView === 'kanban') {
+    renderKanbanBoard(inquiries);
+  } else if (currentView === 'reminders') {
+    renderRemindersView(inquiries);
+  } else if (currentView === 'analytics') {
+    renderAnalyticsView(inquiries);
+  } else if (currentView === 'settings') {
+    loadSettingsIntoForm();
+  }
+
+  updateRemindersBadge();
+}
+
+// Render Dashboard View
+function renderDashboard(inquiries) {
+  const today = new Date().toISOString().split('T')[0];
+  const thisMonth = today.substring(0, 7);
+
+  const total = inquiries.length;
+  const monthCount = inquiries.filter(x => (x.createdAt || '').startsWith(thisMonth)).length;
+  
+  // Reminders for today or overdue
+  const dueToday = inquiries.filter(x => 
+    x.nextFollowUpDate && 
+    x.nextFollowUpDate <= today && 
+    x.status !== 'enrolled' && 
+    x.status !== 'lost'
+  ).length;
+
+  const enrolled = inquiries.filter(x => x.status === 'enrolled').length;
+  const inPipeline = inquiries.filter(x => ['new', 'followup', 'visit', 'test'].includes(x.status)).length;
+  const conversionRate = total > 0 ? Math.round((enrolled / total) * 100) : 0;
+
+  // Update dashboard stats cards
+  document.getElementById('statTotalInquiries').textContent = total;
+  document.getElementById('statMonthInquiries').textContent = monthCount;
+  document.getElementById('statTodayReminders').textContent = dueToday;
+  document.getElementById('statEnrolled').textContent = `${enrolled} (${conversionRate}%)`;
+  document.getElementById('statPipeline').textContent = inPipeline;
+
+  // Render pure SVG / CSS charts
+  ChartRenderer.renderSourceChart('dashboardSourceChart', inquiries);
+  ChartRenderer.renderStatusDonut('dashboardStatusDonut', inquiries);
+
+  // Render Recent Inquiries List on Dashboard
+  const recentList = inquiries.slice(0, 5);
+  renderRecentTable(recentList);
+}
+
+function renderRecentTable(list) {
+  const tbody = document.getElementById('recentInquiriesTbody');
+  if (!tbody) return;
+
+  if (list.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--slate-400); padding: 30px;">មិនទាន់មានទិន្នន័យនៅឡើយទេ</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = list.map(item => {
+    const stConfig = STATUS_CONFIG[item.status] || { labelKh: item.status, badgeClass: 'badge-new' };
+    return `
+      <tr>
+        <td style="font-weight: 700; color: var(--primary-700);">${item.id}</td>
+        <td>
+          <div style="font-weight: 600; color: var(--slate-900);">${escapeHtml(item.parentName)}</div>
+          <div style="font-size: 0.78rem; color: var(--slate-500);">${escapeHtml(item.relation || 'អាណាព្យាបាល')}</div>
+        </td>
+        <td>
+          <div style="font-weight: 500;">${escapeHtml(item.studentNameKh || '-')}</div>
+          <div style="font-size: 0.76rem; color: var(--slate-500);">${escapeHtml(item.studentNameEn || '')}</div>
+        </td>
+        <td><span style="font-size: 0.82rem; color: var(--slate-700);">${escapeHtml(item.targetGrade || '-')}</span></td>
+        <td><span class="badge ${stConfig.badgeClass}"><span class="badge-dot"></span>${stConfig.labelKh}</span></td>
+        <td>
+          <div class="action-buttons">
+            <button class="btn-icon-action" onclick="viewInquiryDetail('${item.id}')" title="មើលលម្អិត">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+            <button class="btn-icon-action note" onclick="openFollowUpModal('${item.id}')" title="កត់ត្រាតាមដាន">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </button>
+          </div>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+// Inquiries View - Search & Filter Engine
+function getFilteredInquiries() {
+  const inquiries = DataManager.getInquiries();
+  const search = (document.getElementById('searchInput')?.value || '').toLowerCase().trim();
+  const sourceFilter = document.getElementById('filterSource')?.value || 'all';
+  const gradeFilter = document.getElementById('filterGrade')?.value || 'all';
+  const dateRange = document.getElementById('filterDateRange')?.value || 'all';
+
+  const today = new Date().toISOString().split('T')[0];
+  const thisMonth = today.substring(0, 7);
+
+  return inquiries.filter(item => {
+    // Status filter
+    if (statusFilter !== 'all' && item.status !== statusFilter) {
+      return false;
+    }
+
+    // Source filter
+    if (sourceFilter !== 'all' && item.source !== sourceFilter) {
+      return false;
+    }
+
+    // Grade filter
+    if (gradeFilter !== 'all' && item.targetGrade !== gradeFilter) {
+      return false;
+    }
+
+    // Date range filter
+    if (dateRange === 'today' && item.createdAt !== today) {
+      return false;
+    }
+    if (dateRange === 'month' && (!item.createdAt || !item.createdAt.startsWith(thisMonth))) {
+      return false;
+    }
+
+    // Search query match
+    if (search) {
+      const matchId = (item.id || '').toLowerCase().includes(search);
+      const matchParent = (item.parentName || '').toLowerCase().includes(search);
+      const matchPhone = (item.parentPhone || '').includes(search) || (item.parentPhone2 || '').includes(search);
+      const matchTelegram = (item.telegram || '').toLowerCase().includes(search);
+      const matchStudentKh = (item.studentNameKh || '').toLowerCase().includes(search);
+      const matchStudentEn = (item.studentNameEn || '').toLowerCase().includes(search);
+
+      if (!matchId && !matchParent && !matchPhone && !matchTelegram && !matchStudentKh && !matchStudentEn) {
+        return false;
+      }
+    }
+
+    return true;
+  });
+}
+
+// Render Main Inquiries Table
+function renderInquiriesTable() {
+  const list = getFilteredInquiries();
+  const tbody = document.getElementById('inquiriesTableBody');
+  const countEl = document.getElementById('tableResultCount');
+  if (!tbody) return;
+
+  if (countEl) countEl.textContent = `រកឃើញ ${list.length} នាក់`;
+
+  // Update Status Tab Counts
+  updateStatusTabCounts();
+
+  if (list.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="9" style="text-align: center; color: var(--slate-400); padding: 50px 20px;">
+          <svg style="margin: 0 auto 12px; display: block; opacity: 0.4;" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          មិនមានទិន្នន័យដែលត្រូវនឹងការស្វែងរកនេះទេ
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  const canEdit = AuthManager.hasPermission('editInquiry');
+  const canDelete = AuthManager.hasPermission('deleteInquiry');
+  const canFollowUp = AuthManager.hasPermission('addFollowUp');
+
+  tbody.innerHTML = list.map(item => {
+    const stConfig = STATUS_CONFIG[item.status] || { labelKh: item.status, badgeClass: 'badge-new' };
+    const cleanPhone = (item.parentPhone || '').replace(/\D/g, '');
+    const cleanTg = (item.telegram || item.parentPhone || '').replace(/\s+/g, '');
+    const tgLink = cleanTg.startsWith('0') ? `https://t.me/+855${cleanTg.substring(1)}` : `https://t.me/${cleanTg}`;
+
+    return `
+      <tr>
+        <td style="font-weight: 700; color: var(--primary-700); font-family: monospace;">${item.id}</td>
+        <td>
+          <div style="font-size: 0.85rem; font-weight: 500;">${item.createdAt || '-'}</div>
+          <div style="font-size: 0.74rem; color: var(--slate-400);">${item.time || ''}</div>
+        </td>
+        <td>
+          <div style="font-weight: 700; color: var(--slate-900); font-size: 0.92rem;">${escapeHtml(item.parentName)}</div>
+          <div style="font-size: 0.78rem; color: var(--slate-500);">${escapeHtml(item.relation || 'អាណាព្យាបាល')}</div>
+        </td>
+        <td>
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="font-weight: 600; font-family: monospace; color: var(--slate-800);">${escapeHtml(item.parentPhone)}</span>
+          </div>
+          ${item.parentPhone2 ? `<div style="font-size: 0.76rem; color: var(--slate-400); font-family: monospace;">${escapeHtml(item.parentPhone2)}</div>` : ''}
+        </td>
+        <td>
+          <div style="font-weight: 600; color: var(--slate-900);">${escapeHtml(item.studentNameKh || '-')}</div>
+          <div style="font-size: 0.78rem; color: var(--slate-500);">${escapeHtml(item.studentNameEn || '')} ${item.gender ? `(${item.gender})` : ''}</div>
+        </td>
+        <td>
+          <div style="font-size: 0.84rem; font-weight: 500; color: var(--slate-800);">${escapeHtml(item.targetGrade || '-')}</div>
+          <div style="font-size: 0.74rem; color: var(--slate-500);">${escapeHtml(item.targetShift || '')}</div>
+        </td>
+        <td>
+          <span style="font-size: 0.82rem; background: var(--slate-100); padding: 3px 8px; border-radius: 6px; color: var(--slate-700);">
+            ${escapeHtml(item.source || '-')}
+          </span>
+        </td>
+        <td>
+          <span class="badge ${stConfig.badgeClass}"><span class="badge-dot"></span>${stConfig.labelKh}</span>
+          ${item.nextFollowUpDate ? `<div style="font-size: 0.72rem; color: var(--warning-700); margin-top: 4px; font-weight: 600;">📅 ${item.nextFollowUpDate}</div>` : ''}
+        </td>
+        <td>
+          <div class="action-buttons">
+            <a href="tel:${cleanPhone}" class="btn-icon-action call" title="Call ទូរស័ព្ទ">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </a>
+            <a href="${tgLink}" target="_blank" class="btn-icon-action telegram" title="ផ្ញើសារ Telegram">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+            </a>
+            ${canFollowUp ? `
+              <button class="btn-icon-action note" onclick="openFollowUpModal('${item.id}')" title="កត់ត្រាតាមដាន Follow-up">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              </button>
+            ` : ''}
+            <button class="btn-icon-action" onclick="viewInquiryDetail('${item.id}')" title="មើលលម្អិត">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+            ${canEdit ? `
+              <button class="btn-icon-action" onclick="editInquiry('${item.id}')" title="កែប្រែ">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              </button>
+            ` : ''}
+            ${canDelete ? `
+              <button class="btn-icon-action" style="color: var(--danger-500);" onclick="confirmDeleteInquiry('${item.id}')" title="លុប">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+              </button>
+            ` : ''}
+          </div>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+// Update Counts for Status Filter Tabs
+function updateStatusTabCounts() {
+  const all = DataManager.getInquiries();
+  const counts = {
+    all: all.length,
+    new: 0,
+    followup: 0,
+    visit: 0,
+    test: 0,
+    enrolled: 0,
+    lost: 0
+  };
+
+  all.forEach(x => {
+    if (counts[x.status] !== undefined) counts[x.status]++;
+  });
+
+  Object.keys(counts).forEach(k => {
+    const el = document.getElementById(`count-tab-${k}`);
+    if (el) el.textContent = counts[k];
+  });
+}
+
+function setStatusFilter(status) {
+  statusFilter = status;
+  document.querySelectorAll('.status-tab').forEach(el => {
+    el.classList.toggle('active', el.dataset.status === status);
+  });
+  renderInquiriesTable();
+}
+
+// Kanban Board Rendering
+function renderKanbanBoard(inquiries) {
+  const columns = ['new', 'followup', 'visit', 'test', 'enrolled', 'lost'];
+  const canEdit = AuthManager.hasPermission('editInquiry');
+  const canFollowUp = AuthManager.hasPermission('addFollowUp');
+
+  columns.forEach(colKey => {
+    const colListEl = document.getElementById(`kanban-list-${colKey}`);
+    const colCountEl = document.getElementById(`kanban-count-${colKey}`);
+    if (!colListEl) return;
+
+    const items = inquiries.filter(x => (x.status || 'new') === colKey);
+    if (colCountEl) colCountEl.textContent = items.length;
+
+    if (items.length === 0) {
+      colListEl.innerHTML = `<div style="text-align: center; color: var(--slate-400); font-size: 0.8rem; padding: 24px 0;">គ្មានទិន្នន័យ</div>`;
+      return;
+    }
+
+    colListEl.innerHTML = items.map(item => `
+      <div class="kanban-card" draggable="${canEdit}" ondragstart="handleKanbanDragStart(event, '${item.id}')">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+          <span style="font-size: 0.72rem; font-family: monospace; font-weight: 700; color: var(--primary-600);">${item.id}</span>
+          <span style="font-size: 0.72rem; color: var(--slate-400);">${item.createdAt || ''}</span>
+        </div>
+        <div class="kanban-card-parent">${escapeHtml(item.parentName)}</div>
+        <div class="kanban-card-student">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          ${escapeHtml(item.studentNameKh || 'គ្មានឈ្មោះកូន')} (${escapeHtml(item.targetGrade || '-')})
+        </div>
+        <div style="margin-bottom: 8px;">
+          <select class="filter-select" style="width: 100%; padding: 4px 8px; font-size: 0.75rem; border-radius: 6px; background-color: var(--slate-50);" ${!canEdit ? 'disabled' : ''} onchange="quickUpdateStatus('${item.id}', this.value)">
+            <option value="new" ${item.status === 'new' ? 'selected' : ''}>ដំណាក់កាល: ព័ត៌មានថ្មី</option>
+            <option value="followup" ${item.status === 'followup' ? 'selected' : ''}>ដំណាក់កាល: កំពុងតាមដាន</option>
+            <option value="visit" ${item.status === 'visit' ? 'selected' : ''}>ដំណាក់កាល: ណាត់ទស្សនកិច្ច</option>
+            <option value="test" ${item.status === 'test' ? 'selected' : ''}>ដំណាក់កាល: ធ្វើតេស្ត</option>
+            <option value="enrolled" ${item.status === 'enrolled' ? 'selected' : ''}>ដំណាក់កាល: ចុះឈ្មោះជោគជ័យ 🎉</option>
+            <option value="lost" ${item.status === 'lost' ? 'selected' : ''}>ដំណាក់កាល: មិនចាប់អារម្មណ៍</option>
+          </select>
+        </div>
+        <div class="kanban-card-meta">
+          <span style="font-family: monospace;">📞 ${escapeHtml(item.parentPhone)}</span>
+          <div style="display: flex; gap: 4px;">
+            ${canFollowUp ? `
+              <button class="btn-icon-action note" style="width: 26px; height: 26px;" onclick="openFollowUpModal('${item.id}')" title="កត់ត្រាតាមដាន">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              </button>
+            ` : ''}
+            <button class="btn-icon-action" style="width: 26px; height: 26px;" onclick="viewInquiryDetail('${item.id}')" title="មើលលម្អិត">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  });
+}
+
+function quickUpdateStatus(id, newStatus) {
+  if (!AuthManager.hasPermission('editInquiry')) {
+    showToast('គណនីរបស់អ្នកមិនមានសិទ្ធិកែប្រែដំណាក់កាលនេះទេ!', 'warning');
+    return;
+  }
+  if (id && newStatus) {
+    DataManager.updateInquiry(id, { status: newStatus });
+    showToast(`បានផ្លាស់ប្តូរស្ថានភាពទៅជា ${STATUS_CONFIG[newStatus]?.labelKh || newStatus}`, 'success');
+    renderKanbanBoard(DataManager.getInquiries());
+  }
+}
+
+function handleKanbanDragStart(e, id) {
+  if (!AuthManager.hasPermission('editInquiry')) {
+    e.preventDefault();
+    return;
+  }
+  e.dataTransfer.setData('text/plain', id);
+}
+
+function handleKanbanDragOver(e) {
+  e.preventDefault();
+}
+
+function handleKanbanDrop(e, targetStatus) {
+  e.preventDefault();
+  if (!AuthManager.hasPermission('editInquiry')) {
+    showToast('គណនីរបស់អ្នកមិនមានសិទ្ធិកែប្រែដំណាក់កាលនេះទេ!', 'warning');
+    return;
+  }
+  const id = e.dataTransfer.getData('text/plain');
+  if (id && targetStatus) {
+    DataManager.updateInquiry(id, { status: targetStatus });
+    showToast(`បានផ្លាស់ប្តូរស្ថានភាពទៅជា ${STATUS_CONFIG[targetStatus]?.labelKh || targetStatus}`, 'success');
+    renderKanbanBoard(DataManager.getInquiries());
+  }
+}
+
+// Render Reminders View (Today's Follow-up Tasks)
+function renderRemindersView(inquiries) {
+  const container = document.getElementById('remindersListContainer');
+  if (!container) return;
+
+  const today = new Date().toISOString().split('T')[0];
+
+  const dueItems = inquiries.filter(x => 
+    x.nextFollowUpDate && 
+    x.nextFollowUpDate <= today && 
+    x.status !== 'enrolled' && 
+    x.status !== 'lost'
+  );
+
+  const upcomingItems = inquiries.filter(x => 
+    x.nextFollowUpDate && 
+    x.nextFollowUpDate > today && 
+    x.status !== 'enrolled' && 
+    x.status !== 'lost'
+  );
+
+  if (dueItems.length === 0 && upcomingItems.length === 0) {
+    container.innerHTML = `
+      <div style="text-align: center; padding: 60px 20px; background: #fff; border-radius: 16px; border: 1px solid var(--slate-200);">
+        <div style="font-size: 2.5rem; margin-bottom: 10px;">🎉</div>
+        <h3 style="font-weight: 700; color: var(--slate-900); margin-bottom: 6px;">មិនមានការងារតាមដានដែលត្រូវធ្វើទេ!</h3>
+        <p style="color: var(--slate-500); font-size: 0.9rem;">អ្នកបានបំពេញការងារតាមដានភ្ញៀវសួរព័ត៌មានអស់ហើយ។</p>
+      </div>
+    `;
+    return;
+  }
+
+  let html = '';
+
+  if (dueItems.length > 0) {
+    html += `
+      <div style="margin-bottom: 24px;">
+        <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--danger-700); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+          <span>🚨 ត្រូវទាក់ទងថ្ងៃនេះ / ហួសកាលកំណត់ (${dueItems.length} នាក់)</span>
+        </h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px;">
+          ${dueItems.map(item => renderReminderCard(item, true)).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  if (upcomingItems.length > 0) {
+    html += `
+      <div>
+        <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--slate-800); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+          <span>🗓️ ត្រូវទាក់ទងនាពេលខាងមុខ (${upcomingItems.length} នាក់)</span>
+        </h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px;">
+          ${upcomingItems.map(item => renderReminderCard(item, false)).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  container.innerHTML = html;
+}
+
+function renderReminderCard(item, isOverdue) {
+  const cleanPhone = (item.parentPhone || '').replace(/\D/g, '');
+  const cleanTg = (item.telegram || item.parentPhone || '').replace(/\s+/g, '');
+  const tgLink = cleanTg.startsWith('0') ? `https://t.me/+855${cleanTg.substring(1)}` : `https://t.me/${cleanTg}`;
+  const borderCol = isOverdue ? 'var(--danger-500)' : 'var(--slate-200)';
+  const bgCol = isOverdue ? '#fff5f5' : '#ffffff';
+
+  return `
+    <div style="background: ${bgCol}; border: 1px solid ${borderCol}; border-radius: 14px; padding: 18px; box-shadow: var(--shadow-sm);">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+        <div>
+          <span style="font-family: monospace; font-size: 0.76rem; font-weight: 700; color: var(--primary-600);">${item.id}</span>
+          <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--slate-900);">${escapeHtml(item.parentName)}</h4>
+        </div>
+        <span style="font-size: 0.78rem; font-weight: 700; padding: 4px 8px; border-radius: 6px; background: ${isOverdue ? 'var(--danger-50)' : 'var(--slate-100)'}; color: ${isOverdue ? 'var(--danger-700)' : 'var(--slate-700)'};">
+          📅 ${item.nextFollowUpDate}
+        </span>
+      </div>
+      <div style="font-size: 0.84rem; color: var(--slate-600); margin-bottom: 6px;">
+        សិស្ស: <strong>${escapeHtml(item.studentNameKh || '-')}</strong> (${escapeHtml(item.targetGrade || '-')})
+      </div>
+      <div style="font-size: 0.82rem; color: var(--slate-500); margin-bottom: 14px; background: rgba(0,0,0,0.02); padding: 8px 10px; border-radius: 8px;">
+        កំណត់ចំណាំ: ${escapeHtml(item.initialNotes || 'គ្មានកំណត់ចំណាំ')}
+      </div>
+      <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 12px;">
+        <span style="font-weight: 700; font-family: monospace; font-size: 0.88rem;">${escapeHtml(item.parentPhone)}</span>
+        <div style="display: flex; gap: 6px;">
+          <a href="tel:${cleanPhone}" class="btn-icon-action call" title="Call">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </a>
+          <a href="${tgLink}" target="_blank" class="btn-icon-action telegram" title="Telegram">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+          </a>
+          <button class="header-action-btn btn-primary" style="padding: 5px 12px; font-size: 0.8rem;" onclick="openFollowUpModal('${item.id}')">
+            កត់ត្រាតាមដាន
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// Render Analytics View
+function renderAnalyticsView(inquiries) {
+  ChartRenderer.renderSourceChart('analyticsSourceChart', inquiries);
+  ChartRenderer.renderStatusDonut('analyticsStatusDonut', inquiries);
+  ChartRenderer.renderGradeChart('analyticsGradeChart', inquiries);
+}
+
+// Update Top Badge & Sidebar Counters
+function updateRemindersBadge() {
+  const inquiries = DataManager.getInquiries();
+  const today = new Date().toISOString().split('T')[0];
+
+  const dueToday = inquiries.filter(x => 
+    x.nextFollowUpDate && 
+    x.nextFollowUpDate <= today && 
+    x.status !== 'enrolled' && 
+    x.status !== 'lost'
+  ).length;
+
+  const badgeEl = document.getElementById('remindersNavBadge');
+  const topBadgeEl = document.getElementById('headerAlertBadge');
+
+  if (badgeEl) {
+    badgeEl.textContent = dueToday;
+    badgeEl.style.display = dueToday > 0 ? 'inline-block' : 'none';
+  }
+  if (topBadgeEl) {
+    topBadgeEl.textContent = dueToday;
+    topBadgeEl.style.display = dueToday > 0 ? 'inline-block' : 'none';
+  }
+}
+
+// Inquiry Form Modal - Open for New or Edit
+function openInquiryModal(id = null) {
+  if (id && !AuthManager.hasPermission('editInquiry')) {
+    showToast('គណនីរបស់អ្នកមិនមានសិទ្ធិកែប្រែព័ត៌មានទេ!', 'warning');
+    return;
+  }
+  if (!id && !AuthManager.hasPermission('addInquiry')) {
+    showToast('គណនីរបស់អ្នកមិនមានសិទ្ធិកត់ត្រាអ្នកសួរថ្មីទេ!', 'warning');
+    return;
+  }
+
+  currentEditingId = id;
+  const modal = document.getElementById('inquiryFormModal');
+  const title = document.getElementById('inquiryModalTitle');
+  const form = document.getElementById('inquiryForm');
+  if (!modal || !form) return;
+
+  form.reset();
+  populateDropdowns();
+
+  if (id) {
+    title.textContent = `កែប្រែព័ត៌មាន (${id})`;
+    const list = DataManager.getInquiries();
+    const item = list.find(x => x.id === id);
+    if (item) {
+      document.getElementById('formParentName').value = item.parentName || '';
+      document.getElementById('formParentPhone').value = item.parentPhone || '';
+      document.getElementById('formParentPhone2').value = item.parentPhone2 || '';
+      document.getElementById('formTelegram').value = item.telegram || '';
+      document.getElementById('formRelation').value = item.relation || '';
+      document.getElementById('formAddress').value = item.address || '';
+      document.getElementById('formStudentNameKh').value = item.studentNameKh || '';
+      document.getElementById('formStudentNameEn').value = item.studentNameEn || '';
+      document.getElementById('formGender').value = item.gender || 'ប្រុស';
+      document.getElementById('formDob').value = item.dob || '';
+      document.getElementById('formAge').value = item.age || '';
+      document.getElementById('formCurrentSchool').value = item.currentSchool || '';
+      document.getElementById('formTargetGrade').value = item.targetGrade || '';
+      document.getElementById('formTargetShift').value = item.targetShift || '';
+      document.getElementById('formSource').value = item.source || '';
+      document.getElementById('formCounsellor').value = item.counsellor || '';
+      document.getElementById('formStatus').value = item.status || 'new';
+      document.getElementById('formNextFollowUp').value = item.nextFollowUpDate || '';
+      document.getElementById('formInterestAreas').value = item.interestAreas || '';
+      document.getElementById('formInitialNotes').value = item.initialNotes || '';
+    }
+  } else {
+    title.textContent = 'កត់ត្រាព័ត៌មានអ្នកសួរថ្មី (New Inquiry)';
+    document.getElementById('formStatus').value = 'new';
+    document.getElementById('formGender').value = 'ប្រុស';
+    document.getElementById('formRelation').value = 'ឳពុក (Father)';
+  }
+
+  modal.classList.add('active');
+}
+
+function closeInquiryModal() {
+  const modal = document.getElementById('inquiryFormModal');
+  if (modal) modal.classList.remove('active');
+  currentEditingId = null;
+}
+
+// Auto calculate age from DOB
+function handleDobChange(e) {
+  const val = e.target.value;
+  if (!val) return;
+  const birthYear = new Date(val).getFullYear();
+  const currentYear = new Date().getFullYear();
+  const age = currentYear - birthYear;
+  if (age >= 0 && age < 100) {
+    document.getElementById('formAge').value = age;
+  }
+}
+
+// Save Inquiry Form
+function saveInquiryForm(e) {
+  e.preventDefault();
+
+  const parentName = document.getElementById('formParentName').value.trim();
+  const parentPhone = document.getElementById('formParentPhone').value.trim();
+
+  if (!parentName || !parentPhone) {
+    showToast('សូមបញ្ចូលឈ្មោះអាណាព្យាបាល និងលេខទូរស័ព្ទជាចាំបាច់!', 'danger');
+    return;
+  }
+
+  const payload = {
+    parentName,
+    parentPhone,
+    parentPhone2: document.getElementById('formParentPhone2').value.trim(),
+    telegram: document.getElementById('formTelegram').value.trim(),
+    relation: document.getElementById('formRelation').value,
+    address: document.getElementById('formAddress').value.trim(),
+    studentNameKh: document.getElementById('formStudentNameKh').value.trim(),
+    studentNameEn: document.getElementById('formStudentNameEn').value.trim(),
+    gender: document.getElementById('formGender').value,
+    dob: document.getElementById('formDob').value,
+    age: parseInt(document.getElementById('formAge').value) || '',
+    currentSchool: document.getElementById('formCurrentSchool').value.trim(),
+    targetGrade: document.getElementById('formTargetGrade').value,
+    targetShift: document.getElementById('formTargetShift').value,
+    source: document.getElementById('formSource').value,
+    counsellor: document.getElementById('formCounsellor').value,
+    status: document.getElementById('formStatus').value,
+    nextFollowUpDate: document.getElementById('formNextFollowUp').value,
+    interestAreas: document.getElementById('formInterestAreas').value.trim(),
+    initialNotes: document.getElementById('formInitialNotes').value.trim(),
+    time: new Date().toTimeString().substring(0, 5)
+  };
+
+  if (currentEditingId) {
+    DataManager.updateInquiry(currentEditingId, payload);
+    showToast(`បានកែប្រែទិន្នន័យ ${currentEditingId} ដោយជោគជ័យ!`, 'success');
+  } else {
+    const newItem = DataManager.addInquiry(payload);
+    showToast(`បានកត់ត្រាអ្នកសួរថ្មីលេខកូដ ${newItem.id} ជោគជ័យ!`, 'success');
+  }
+
+  closeInquiryModal();
+  renderCurrentView();
+}
+
+function editInquiry(id) {
+  openInquiryModal(id);
+}
+
+function confirmDeleteInquiry(id) {
+  if (!AuthManager.hasPermission('deleteInquiry')) {
+    showToast('គណនីរបស់អ្នកមិនមានសិទ្ធិលុបទិន្នន័យទេ (អនុញ្ញាតតែ Admin System)!', 'danger');
+    return;
+  }
+  if (confirm(`តើអ្នកពិតជាចង់លុបទិន្នន័យលេខកូដ ${id} នេះមែនទេ?`)) {
+    DataManager.deleteInquiry(id);
+    showToast(`បានលុបទិន្នន័យ ${id} រួចរាល់`, 'warning');
+    renderCurrentView();
+  }
+}
+
+// Follow-up Activity Modal
+function openFollowUpModal(id) {
+  currentFollowUpId = id;
+  const modal = document.getElementById('followUpModal');
+  const title = document.getElementById('followUpModalTitle');
+  const sub = document.getElementById('followUpModalSub');
+  const form = document.getElementById('followUpForm');
+  if (!modal || !form) return;
+
+  form.reset();
+
+  const item = DataManager.getInquiries().find(x => x.id === id);
+  if (!item) return;
+
+  title.textContent = `កត់ត្រាតាមដាន: ${item.parentName}`;
+  sub.textContent = `លេខកូដ: ${item.id} | សិស្ស: ${item.studentNameKh || '-'} | ទូរស័ព្ទ: ${item.parentPhone}`;
+
+  // Pre-fill current status and counsellor
+  document.getElementById('followUpStatus').value = item.status || 'followup';
+  document.getElementById('followUpCounsellor').value = item.counsellor || '';
+  document.getElementById('followUpNextDate').value = item.nextFollowUpDate || '';
+
+  // Render recent timeline inside follow-up modal
+  renderTimelineInModal(item.followUpLogs || []);
+
+  modal.classList.add('active');
+}
+
+function closeFollowUpModal() {
+  const modal = document.getElementById('followUpModal');
+  if (modal) modal.classList.remove('active');
+  currentFollowUpId = null;
+}
+
+function renderTimelineInModal(logs) {
+  const container = document.getElementById('modalTimelineContainer');
+  if (!container) return;
+
+  if (logs.length === 0) {
+    container.innerHTML = `<p style="font-size: 0.82rem; color: var(--slate-400); font-style: italic;">មិនទាន់មានប្រវត្តិតាមដានពីមុនមកនៅឡើយទេ</p>`;
+    return;
+  }
+
+  const sorted = [...logs].reverse();
+  container.innerHTML = `
+    <div class="timeline">
+      ${sorted.map(log => `
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <span class="timeline-title">${escapeHtml(log.method)} - ${escapeHtml(log.counsellor || '')}</span>
+              <span class="timeline-time">${log.date} ${log.time || ''}</span>
+            </div>
+            <div class="timeline-body">
+              <div>${escapeHtml(log.summary)}</div>
+              ${log.nextAction ? `<div style="font-size: 0.76rem; color: var(--primary-700); margin-top: 4px; font-weight: 600;">👉 ${escapeHtml(log.nextAction)}</div>` : ''}
+            </div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function saveFollowUpForm(e) {
+  e.preventDefault();
+  if (!currentFollowUpId) return;
+
+  const summary = document.getElementById('followUpSummary').value.trim();
+  if (!summary) {
+    showToast('សូមបញ្ចូលខ្លឹមសារសន្ទនា/កំណត់ត្រា!', 'danger');
+    return;
+  }
+
+  const note = {
+    method: document.getElementById('followUpMethod').value,
+    counsellor: document.getElementById('followUpCounsellor').value,
+    summary: summary,
+    nextAction: document.getElementById('followUpNextAction').value.trim(),
+    newStatus: document.getElementById('followUpStatus').value,
+    nextFollowUpDate: document.getElementById('followUpNextDate').value
+  };
+
+  DataManager.addFollowUpNote(currentFollowUpId, note);
+  showToast('បានកត់ត្រាការតាមដានថ្មីដោយជោគជ័យ!', 'success');
+
+  closeFollowUpModal();
+  renderCurrentView();
+}
+
+// Inquiry Profile Detail Modal View
+function viewInquiryDetail(id) {
+  const modal = document.getElementById('detailViewModal');
+  const container = document.getElementById('detailViewBody');
+  if (!modal || !container) return;
+
+  const item = DataManager.getInquiries().find(x => x.id === id);
+  if (!item) return;
+
+  const stConfig = STATUS_CONFIG[item.status] || { labelKh: item.status, badgeClass: 'badge-new' };
+  const cleanPhone = (item.parentPhone || '').replace(/\D/g, '');
+  const cleanTg = (item.telegram || item.parentPhone || '').replace(/\s+/g, '');
+  const tgLink = cleanTg.startsWith('0') ? `https://t.me/+855${cleanTg.substring(1)}` : `https://t.me/${cleanTg}`;
+
+  const logs = item.followUpLogs || [];
+  const sortedLogs = [...logs].reverse();
+
+  container.innerHTML = `
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; border-bottom: 1px solid var(--slate-200); padding-bottom: 16px;">
+      <div>
+        <span style="font-family: monospace; font-size: 0.85rem; font-weight: 700; color: var(--primary-600);">${item.id}</span>
+        <h2 style="font-size: 1.4rem; font-weight: 800; color: var(--slate-900); margin: 2px 0 6px;">${escapeHtml(item.parentName)}</h2>
+        <div style="display: flex; gap: 8px; align-items: center;">
+          <span class="badge ${stConfig.badgeClass}"><span class="badge-dot"></span>${stConfig.labelKh}</span>
+          <span style="font-size: 0.8rem; color: var(--slate-500);">កាលបរិច្ឆេទសួរ: ${item.createdAt} (${item.time || ''})</span>
+        </div>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <button class="header-action-btn btn-outline" onclick="printInquirySheet('${item.id}')">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          បោះពុម្ព
+        </button>
+        <button class="header-action-btn btn-primary" onclick="closeDetailModal(); openFollowUpModal('${item.id}');">
+          + កត់ត្រាតាមដាន
+        </button>
+      </div>
+    </div>
+
+    <!-- 2 Column Details Grid -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
+      <div style="background: var(--slate-50); padding: 16px; border-radius: 12px; border: 1px solid var(--slate-200);">
+        <h4 style="font-size: 0.92rem; font-weight: 700; color: var(--slate-900); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+          👨‍👩‍👦 ព័ត៌មានអាណាព្យាបាល
+        </h4>
+        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.86rem;">
+          <div><span style="color: var(--slate-500);">ទំនាក់ទំនង:</span> <strong>${escapeHtml(item.relation || '-')}</strong></div>
+          <div>
+            <span style="color: var(--slate-500);">លេខទូរស័ព្ទ:</span> 
+            <strong style="font-family: monospace;">${escapeHtml(item.parentPhone)}</strong>
+            <a href="tel:${cleanPhone}" style="margin-left: 8px; color: var(--success-700); text-decoration: none;">[Call]</a>
+          </div>
+          ${item.parentPhone2 ? `<div><span style="color: var(--slate-500);">លេខទី២:</span> <strong style="font-family: monospace;">${escapeHtml(item.parentPhone2)}</strong></div>` : ''}
+          <div>
+            <span style="color: var(--slate-500);">Telegram:</span> 
+            <strong>${escapeHtml(item.telegram || '-')}</strong>
+            <a href="${tgLink}" target="_blank" style="margin-left: 8px; color: var(--primary-600); text-decoration: none;">[Chat]</a>
+          </div>
+          <div><span style="color: var(--slate-500);">អាសយដ្ឋាន:</span> <strong>${escapeHtml(item.address || '-')}</strong></div>
+        </div>
+      </div>
+
+      <div style="background: var(--slate-50); padding: 16px; border-radius: 12px; border: 1px solid var(--slate-200);">
+        <h4 style="font-size: 0.92rem; font-weight: 700; color: var(--slate-900); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+          🎓 ព័ត៌មានសិស្ស និងកម្មវិធី
+        </h4>
+        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.86rem;">
+          <div><span style="color: var(--slate-500);">ឈ្មោះខ្មែរ:</span> <strong>${escapeHtml(item.studentNameKh || '-')}</strong></div>
+          <div><span style="color: var(--slate-500);">ឈ្មោះឡាតាំង:</span> <strong>${escapeHtml(item.studentNameEn || '-')}</strong></div>
+          <div><span style="color: var(--slate-500);">ភេទ:</span> <strong>${escapeHtml(item.gender || '-')}</strong> | <span style="color: var(--slate-500);">អាយុ:</span> <strong>${item.age ? `${item.age} ឆ្នាំ` : '-'}</strong></div>
+          <div><span style="color: var(--slate-500);">ថ្ងៃកំណើត:</span> <strong>${escapeHtml(item.dob || '-')}</strong></div>
+          <div><span style="color: var(--slate-500);">ថ្នាក់ចាប់អារម្មណ៍:</span> <strong style="color: var(--primary-700);">${escapeHtml(item.targetGrade || '-')}</strong></div>
+          <div><span style="color: var(--slate-500);">វេនសិក្សា:</span> <strong>${escapeHtml(item.targetShift || '-')}</strong></div>
+          <div><span style="color: var(--slate-500);">សាលាចាស់:</span> <strong>${escapeHtml(item.currentSchool || '-')}</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Marketing & Remarks -->
+    <div style="background: #ffffff; border: 1px solid var(--slate-200); border-radius: 12px; padding: 16px; margin-bottom: 24px;">
+      <h4 style="font-size: 0.92rem; font-weight: 700; color: var(--slate-900); margin-bottom: 10px;">
+        📢 ព័ត៌មានទីផ្សារ និងកំណត់ចំណាំ
+      </h4>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; font-size: 0.85rem; margin-bottom: 12px;">
+        <div><span style="color: var(--slate-500);">ប្រភពទីផ្សារ:</span> <strong>${escapeHtml(item.source || '-')}</strong></div>
+        <div><span style="color: var(--slate-500);">បុគ្គលិកប្រឹក្សា:</span> <strong>${escapeHtml(item.counsellor || '-')}</strong></div>
+        <div><span style="color: var(--slate-500);">ថ្ងៃតាមដានបន្ទាប់:</span> <strong style="color: var(--warning-700);">${escapeHtml(item.nextFollowUpDate || 'មិនទាន់កំណត់')}</strong></div>
+      </div>
+      ${item.interestAreas ? `<div style="font-size: 0.85rem; margin-bottom: 8px;"><span style="color: var(--slate-500);">ចំណុចចាប់អារម្មណ៍:</span> ${escapeHtml(item.interestAreas)}</div>` : ''}
+      ${item.initialNotes ? `<div style="font-size: 0.85rem; background: var(--slate-50); padding: 10px; border-radius: 8px;"><span style="color: var(--slate-500);">កំណត់ចំណាំដំបូង:</span> ${escapeHtml(item.initialNotes)}</div>` : ''}
+    </div>
+
+    <!-- Follow-up Activity History Timeline -->
+    <div>
+      <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--slate-900); margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
+        <span>📝 ប្រវត្តិនៃការតាមដាន និងទំនាក់ទំនង (${logs.length} ដង)</span>
+      </h4>
+      ${logs.length === 0 ? `
+        <div style="text-align: center; color: var(--slate-400); padding: 24px; border: 1px dashed var(--slate-300); border-radius: 12px;">
+          មិនទាន់មានប្រវត្តិតាមដាននៅឡើយទេ
+        </div>
+      ` : `
+        <div class="timeline">
+          ${sortedLogs.map(log => `
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <span class="timeline-title">${escapeHtml(log.method)} - ដោយ ${escapeHtml(log.counsellor || 'បុគ្គលិក')}</span>
+                  <span class="timeline-time">${log.date} ${log.time || ''}</span>
+                </div>
+                <div class="timeline-body">
+                  <div>${escapeHtml(log.summary)}</div>
+                  ${log.nextAction ? `<div style="font-size: 0.78rem; color: var(--primary-700); margin-top: 6px; font-weight: 600;">👉 សកម្មភាពបន្ត: ${escapeHtml(log.nextAction)}</div>` : ''}
+                </div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `}
+    </div>
+  `;
+
+  modal.classList.add('active');
+}
+
+function closeDetailModal() {
+  const modal = document.getElementById('detailViewModal');
+  if (modal) modal.classList.remove('active');
+}
+
+// Print Inquiry Sheet (Printable lead sheet)
+function printInquirySheet(id) {
+  const item = DataManager.getInquiries().find(x => x.id === id);
+  const settings = DataManager.getSettings();
+  if (!item) return;
+
+  const printWindow = window.open('', '_blank');
+  if (!printWindow) {
+    alert("សូមបើកការអនុញ្ញាត Pop-up លើ Browser ដើម្បីបោះពុម្ព!");
+    return;
+  }
+
+  const logs = item.followUpLogs || [];
+
+  printWindow.document.write(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>ប័ណ្ណព័ត៌មានអ្នកសួរ - ${item.id}</title>
+      <style>
+        body { font-family: 'Kantumruy Pro', 'Khmer OS Siemreap', 'Segoe UI', sans-serif; padding: 30px; color: #1e293b; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #2563eb; padding-bottom: 14px; margin-bottom: 20px; }
+        .school-title { font-size: 1.3rem; font-weight: bold; color: #1e3a8a; }
+        .school-sub { font-size: 0.85rem; color: #64748b; }
+        .doc-title { text-align: center; font-size: 1.25rem; font-weight: bold; margin-bottom: 20px; color: #0f172a; }
+        .box { border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px; margin-bottom: 16px; }
+        .box-title { font-weight: bold; font-size: 0.95rem; margin-bottom: 10px; color: #1e3a8a; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.9rem; }
+        .table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 10px; }
+        .table th, .table td { border: 1px solid #cbd5e1; padding: 8px 10px; text-align: left; }
+        .table th { background: #f8fafc; }
+        .footer { margin-top: 40px; display: flex; justify-content: space-between; font-size: 0.9rem; }
+        @media print {
+          body { padding: 0; }
+        }
+      </style>
+    </head>
+    <body>
+      <div class="header">
+        <div>
+          <div class="school-title">${escapeHtml(settings.schoolName)}</div>
+          <div class="school-sub">ទូរស័ព្ទ: ${escapeHtml(settings.schoolPhone)} | អាសយដ្ឋាន: ${escapeHtml(settings.schoolAddress)}</div>
+        </div>
+        <div style="text-align: right; font-size: 0.85rem;">
+          <div><strong>លេខកូដ:</strong> ${item.id}</div>
+          <div><strong>កាលបរិច្ឆេទ:</strong> ${item.createdAt}</div>
+        </div>
+      </div>
+
+      <div class="doc-title">ប័ណ្ណកត់ត្រាព័ត៌មានអ្នកសួរព័ត៌មានសាលា (School Inquiry Lead Sheet)</div>
+
+      <div class="box">
+        <div class="box-title">១. ព័ត៌មានអាណាព្យាបាល</div>
+        <div class="grid">
+          <div><strong>ឈ្មោះអាណាព្យាបាល:</strong> ${escapeHtml(item.parentName)}</div>
+          <div><strong>ទំនាក់ទំនងត្រូវជា:</strong> ${escapeHtml(item.relation || '-')}</div>
+          <div><strong>លេខទូរស័ព្ទ:</strong> ${escapeHtml(item.parentPhone)} ${item.parentPhone2 ? ` / ${escapeHtml(item.parentPhone2)}` : ''}</div>
+          <div><strong>Telegram:</strong> ${escapeHtml(item.telegram || '-')}</div>
+          <div style="grid-column: 1 / -1;"><strong>អាសយដ្ឋាន:</strong> ${escapeHtml(item.address || '-')}</div>
+        </div>
+      </div>
+
+      <div class="box">
+        <div class="box-title">២. ព័ត៌មានសិស្ស និងកម្មវិធីសិក្សាដែលចាប់អារម្មណ៍</div>
+        <div class="grid">
+          <div><strong>ឈ្មោះសិស្ស (ខ្មែរ):</strong> ${escapeHtml(item.studentNameKh || '-')}</div>
+          <div><strong>ឈ្មោះសិស្ស (ឡាតាំង):</strong> ${escapeHtml(item.studentNameEn || '-')}</div>
+          <div><strong>ភេទ:</strong> ${escapeHtml(item.gender || '-')} | <strong>អាយុ:</strong> ${item.age ? `${item.age} ឆ្នាំ` : '-'}</div>
+          <div><strong>ថ្ងៃខែឆ្នាំកំណើត:</strong> ${escapeHtml(item.dob || '-')}</div>
+          <div><strong>ថ្នាក់ចាប់អារម្មណ៍:</strong> ${escapeHtml(item.targetGrade || '-')}</div>
+          <div><strong>វេនសិក្សា:</strong> ${escapeHtml(item.targetShift || '-')}</div>
+          <div><strong>សាលាចាស់/បច្ចុប្បន្ន:</strong> ${escapeHtml(item.currentSchool || '-')}</div>
+          <div><strong>ប្រភពទីផ្សារ:</strong> ${escapeHtml(item.source || '-')}</div>
+          <div style="grid-column: 1 / -1;"><strong>ចំណុចចាប់អារម្មណ៍ពិសេស:</strong> ${escapeHtml(item.interestAreas || '-')}</div>
+          <div style="grid-column: 1 / -1;"><strong>កំណត់ចំណាំដំបូង:</strong> ${escapeHtml(item.initialNotes || '-')}</div>
+        </div>
+      </div>
+
+      <div class="box">
+        <div class="box-title">៣. ប្រវត្តិនៃការតាមដាន និងការពិគ្រោះយោបល់ (${logs.length} ដង)</div>
+        ${logs.length === 0 ? '<p style="color: #64748b; font-size: 0.85rem;">មិនទាន់មានកំណត់ត្រាតាមដានទេ</p>' : `
+          <table class="table">
+            <thead>
+              <tr>
+                <th>កាលបរិច្ឆេទ</th>
+                <th>មធ្យោបាយ</th>
+                <th>អ្នកប្រឹក្សា</th>
+                <th>ខ្លឹមសារសង្ខេប</th>
+                <th>សកម្មភាពបន្ត</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${logs.map(log => `
+                <tr>
+                  <td>${log.date} ${log.time || ''}</td>
+                  <td>${escapeHtml(log.method)}</td>
+                  <td>${escapeHtml(log.counsellor || '')}</td>
+                  <td>${escapeHtml(log.summary)}</td>
+                  <td>${escapeHtml(log.nextAction || '-')}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        `}
+      </div>
+
+      <div class="footer">
+        <div>
+          <div>អ្នកប្រឹក្សាទទួលបន្ទុក</div>
+          <div style="margin-top: 45px; font-weight: bold;">(${escapeHtml(item.counsellor || '........................')})</div>
+        </div>
+        <div style="text-align: right;">
+          <div>ហត្ថលេខាអាណាព្យាបាល</div>
+          <div style="margin-top: 45px; font-weight: bold;">(............................................)</div>
+        </div>
+      </div>
+
+      <script>
+        window.onload = function() { window.print(); }
+      </script>
+    </body>
+    </html>
+  `);
+  printWindow.document.close();
+}
+
+// Populate Dropdown Menus from Settings
+function populateDropdowns() {
+  const settings = DataManager.getSettings();
+
+  // Grades dropdowns
+  const gradeDropdowns = [
+    document.getElementById('formTargetGrade'),
+    document.getElementById('filterGrade')
+  ];
+  gradeDropdowns.forEach(dd => {
+    if (!dd) return;
+    const isFilter = dd.id === 'filterGrade';
+    const currentVal = dd.value;
+    dd.innerHTML = isFilter ? '<option value="all">គ្រប់កម្រិតថ្នាក់ទាំងអស់</option>' : '<option value="">-- ជ្រើសរើសកម្រិតថ្នាក់ --</option>';
+    (settings.grades || []).forEach(g => {
+      const opt = document.createElement('option');
+      opt.value = g;
+      opt.textContent = g;
+      dd.appendChild(opt);
+    });
+    if (currentVal) dd.value = currentVal;
+  });
+
+  // Sources dropdowns
+  const sourceDropdowns = [
+    document.getElementById('formSource'),
+    document.getElementById('filterSource')
+  ];
+  sourceDropdowns.forEach(dd => {
+    if (!dd) return;
+    const isFilter = dd.id === 'filterSource';
+    const currentVal = dd.value;
+    dd.innerHTML = isFilter ? '<option value="all">គ្រប់ប្រភពទីផ្សារទាំងអស់</option>' : '<option value="">-- ជ្រើសរើសប្រភព --</option>';
+    (settings.sources || []).forEach(s => {
+      const opt = document.createElement('option');
+      opt.value = s;
+      opt.textContent = s;
+      dd.appendChild(opt);
+    });
+    if (currentVal) dd.value = currentVal;
+  });
+
+  // Shifts dropdown
+  const shiftSelect = document.getElementById('formTargetShift');
+  if (shiftSelect) {
+    const cur = shiftSelect.value;
+    shiftSelect.innerHTML = '<option value="">-- ជ្រើសរើសវេនសិក្សា --</option>';
+    (settings.shifts || []).forEach(sh => {
+      const opt = document.createElement('option');
+      opt.value = sh;
+      opt.textContent = sh;
+      shiftSelect.appendChild(opt);
+    });
+    if (cur) shiftSelect.value = cur;
+  }
+
+  // Counsellors dropdowns
+  const counsellorDropdowns = [
+    document.getElementById('formCounsellor'),
+    document.getElementById('followUpCounsellor')
+  ];
+  counsellorDropdowns.forEach(dd => {
+    if (!dd) return;
+    const cur = dd.value;
+    dd.innerHTML = '<option value="">-- ជ្រើសរើសបុគ្គលិក --</option>';
+    (settings.counsellors || []).forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c;
+      opt.textContent = c;
+      dd.appendChild(opt);
+    });
+    if (cur) dd.value = cur;
+  });
+}
+
+// Settings UI Management
+function initSettingsUI() {
+  const settings = DataManager.getSettings();
+  
+  // Set school name in brand header
+  const brandTitleEl = document.getElementById('brandSchoolName');
+  if (brandTitleEl) brandTitleEl.textContent = settings.schoolName;
+
+  const brandLogoImg = document.getElementById('brandLogoImg');
+  if (brandLogoImg && settings.schoolLogo) {
+    brandLogoImg.src = settings.schoolLogo;
+  }
+}
+
+function loadSettingsIntoForm() {
+  const settings = DataManager.getSettings();
+  document.getElementById('settingsSchoolName').value = settings.schoolName || '';
+  document.getElementById('settingsSchoolPhone').value = settings.schoolPhone || '';
+  document.getElementById('settingsSchoolAddress').value = settings.schoolAddress || '';
+
+  renderTagsList('settingsGradesTags', settings.grades || [], 'grade');
+  renderTagsList('settingsSourcesTags', settings.sources || [], 'source');
+  renderTagsList('settingsCounsellorsTags', settings.counsellors || [], 'counsellor');
+
+  renderUserAccountsTable();
+}
+
+function renderTagsList(containerId, items, type) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  container.innerHTML = items.map((item, idx) => `
+    <div class="tag-chip">
+      <span>${escapeHtml(item)}</span>
+      <button class="tag-remove-btn" onclick="removeSettingTag('${type}', ${idx})" title="លុប">&times;</button>
+    </div>
+  `).join('');
+}
+
+function addSettingTag(type) {
+  const inputMap = {
+    grade: 'newGradeInput',
+    source: 'newSourceInput',
+    counsellor: 'newCounsellorInput'
+  };
+  const input = document.getElementById(inputMap[type]);
+  if (!input || !input.value.trim()) return;
+
+  const val = input.value.trim();
+  const settings = DataManager.getSettings();
+
+  if (type === 'grade') {
+    if (!settings.grades) settings.grades = [];
+    settings.grades.push(val);
+  } else if (type === 'source') {
+    if (!settings.sources) settings.sources = [];
+    settings.sources.push(val);
+  } else if (type === 'counsellor') {
+    if (!settings.counsellors) settings.counsellors = [];
+    settings.counsellors.push(val);
+  }
+
+  DataManager.saveSettings(settings);
+  input.value = '';
+  loadSettingsIntoForm();
+  populateDropdowns();
+  showToast('បានបន្ថែមដោយជោគជ័យ!', 'success');
+}
+
+function removeSettingTag(type, index) {
+  const settings = DataManager.getSettings();
+  if (type === 'grade' && settings.grades) {
+    settings.grades.splice(index, 1);
+  } else if (type === 'source' && settings.sources) {
+    settings.sources.splice(index, 1);
+  } else if (type === 'counsellor' && settings.counsellors) {
+    settings.counsellors.splice(index, 1);
+  }
+  DataManager.saveSettings(settings);
+  loadSettingsIntoForm();
+  populateDropdowns();
+}
+
+function saveGeneralSettings(e) {
+  e.preventDefault();
+  const settings = DataManager.getSettings();
+  settings.schoolName = document.getElementById('settingsSchoolName').value.trim();
+  settings.schoolPhone = document.getElementById('settingsSchoolPhone').value.trim();
+  settings.schoolAddress = document.getElementById('settingsSchoolAddress').value.trim();
+
+  DataManager.saveSettings(settings);
+  initSettingsUI();
+  showToast('បានរក្សាទុកការកំណត់ទូទៅរួចរាល់!', 'success');
+}
+
+// Data Backup & Restore Handlers
+function handleExportCSV() {
+  DataManager.exportToCSV();
+}
+
+function handleExportJSON() {
+  DataManager.exportBackupJSON();
+  showToast('បានទាញយកឯកសារ Backup ដោយជោគជ័យ!', 'success');
+}
+
+function handleImportJSON(input) {
+  const file = input.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const success = DataManager.importBackupJSON(e.target.result);
+    if (success) {
+      showToast('បានបញ្ចូលទិន្នន័យពី Backup ជោគជ័យ!', 'success');
+      initSettingsUI();
+      renderCurrentView();
+    } else {
+      showToast('ឯកសារ Backup មិនត្រឹមត្រូវទេ!', 'danger');
+    }
+  };
+  reader.readAsText(file);
+}
+
+function handleResetDemo() {
+  if (confirm('តើអ្នកពិតជាចង់កំណត់ប្រព័ន្ធទៅជាទិន្នន័យគំរូដើម (Demo Data) មែនទេ?')) {
+    DataManager.resetToDemo();
+    initSettingsUI();
+    renderCurrentView();
+    showToast('បានផ្ទុកទិន្នន័យគំរូជោគជ័យ!', 'success');
+  }
+}
+
+function handleClearAll() {
+  if (confirm('⚠️ ប្រយ័ត្ន: តើអ្នកពិតជាចង់លុបទិន្នន័យអ្នកសួរទាំងអស់ចេញពីប្រព័ន្ធមែនទេ? សកម្មភាពនេះមិនអាចត្រឡប់វិញបានទេ!')) {
+    DataManager.clearAll();
+    renderCurrentView();
+    showToast('បានលុបទិន្នន័យទាំងអស់រួចរាល់!', 'warning');
+  }
+}
+
+// Toast Notifications Helper
+function showToast(message, type = 'info') {
+  let container = document.getElementById('toastContainer');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'toastContainer';
+    container.className = 'toast-container';
+    document.body.appendChild(container);
+  }
+
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.textContent = message;
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateY(10px)';
+    toast.style.transition = 'all 0.3s ease';
+    setTimeout(() => toast.remove(), 300);
+  }, 3500);
+}
+
+// Utility: Escape HTML
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+// Mobile sidebar toggles
+function toggleMobileSidebar() {
+  const sidebar = document.getElementById('appSidebar');
+  if (sidebar) sidebar.classList.toggle('open');
+}
+
+function closeMobileSidebar() {
+  const sidebar = document.getElementById('appSidebar');
+  if (sidebar) sidebar.classList.remove('open');
+}
+
+// Setup Event Listeners
+function setupEventListeners() {
+  // Search and filters
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      renderInquiriesTable();
+    });
+  }
+
+  const filterSource = document.getElementById('filterSource');
+  if (filterSource) {
+    filterSource.addEventListener('change', () => {
+      renderInquiriesTable();
+    });
+  }
+
+  const filterGrade = document.getElementById('filterGrade');
+  if (filterGrade) {
+    filterGrade.addEventListener('change', () => {
+      renderInquiriesTable();
+    });
+  }
+
+  const filterDateRange = document.getElementById('filterDateRange');
+  if (filterDateRange) {
+    filterDateRange.addEventListener('change', () => {
+      renderInquiriesTable();
+    });
+  }
+
+  // DOB auto age listener
+  const formDob = document.getElementById('formDob');
+  if (formDob) {
+    formDob.addEventListener('change', handleDobChange);
+  }
+}
+
+// ================= RBAC & User Management Functions =================
+
+let currentEditingUserId = null;
+
+// Render Users Table in Settings
+function renderUserAccountsTable() {
+  const tbody = document.getElementById('userAccountsTableBody');
+  if (!tbody) return;
+
+  const users = AuthManager.getUsers();
+  if (users.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--slate-400); padding: 24px;">គ្មានគណនីអ្នកប្រើប្រាស់</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = users.map(user => {
+    const roleCfg = ROLES_CONFIG[user.role] || { labelKh: user.role, badgeClass: 'badge-counsellor', color: '#64748b' };
+    const isCurrent = AuthManager.getCurrentUser()?.id === user.id;
+
+    return `
+      <tr>
+        <td>
+          <div style="font-weight: 700; color: var(--slate-900);">
+            ${escapeHtml(user.fullName)}
+            ${isCurrent ? '<span style="font-size: 0.7rem; background: var(--primary-100); color: var(--primary-700); padding: 2px 6px; border-radius: 4px; margin-left: 6px;">គណនីបច្ចុប្បន្ន</span>' : ''}
+          </div>
+          <div style="font-size: 0.74rem; color: var(--slate-400);">បង្កើត: ${user.createdAt || '-'}</div>
+        </td>
+        <td><code style="font-family: monospace; font-weight: 600; color: var(--primary-700);">${escapeHtml(user.username)}</code></td>
+        <td>
+          <span class="badge ${roleCfg.badgeClass}">
+            <span class="badge-dot"></span>
+            ${escapeHtml(roleCfg.labelKh)}
+          </span>
+        </td>
+        <td><span style="font-size: 0.84rem; color: var(--slate-700);">${escapeHtml(user.branch || '-')}</span></td>
+        <td><span style="font-size: 0.84rem; font-family: monospace;">${escapeHtml(user.phone || '-')}</span></td>
+        <td>
+          <span style="font-size: 0.82rem; display: flex; align-items: center;">
+            <span class="user-status-dot ${user.isActive ? 'active' : 'inactive'}"></span>
+            ${user.isActive ? 'សកម្ម (Active)' : 'ផ្អាក (Inactive)'}
+          </span>
+        </td>
+        <td>
+          <div class="action-buttons">
+            <button class="btn-icon-action" onclick="openUserFormModal('${user.id}')" title="កែប្រែ">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            </button>
+            ${user.username !== 'admin' ? `
+              <button class="btn-icon-action" style="color: var(--danger-500);" onclick="confirmDeleteUser('${user.id}')" title="លុបគណនី">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+              </button>
+            ` : ''}
+          </div>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function openUserFormModal(id = null) {
+  if (!AuthManager.hasPermission('manageUsers')) {
+    showToast('អនុញ្ញាតតែ Admin System ប៉ុណ្ណោះ!', 'warning');
+    return;
+  }
+
+  currentEditingUserId = id;
+  const modal = document.getElementById('userFormModal');
+  const title = document.getElementById('userModalTitle');
+  const form = document.getElementById('userAccountForm');
+  if (!modal || !form) return;
+
+  form.reset();
+
+  if (id) {
+    const user = AuthManager.getUsers().find(u => u.id === id);
+    if (!user) return;
+    title.textContent = `កែប្រែគណនី: ${user.fullName}`;
+    document.getElementById('formUserFullName').value = user.fullName || '';
+    document.getElementById('formUserUsername').value = user.username || '';
+    document.getElementById('formUserPassword').value = user.password || '';
+    document.getElementById('formUserRole').value = user.role || 'counsellor';
+    document.getElementById('formUserBranch').value = user.branch || '';
+    document.getElementById('formUserPhone').value = user.phone || '';
+    document.getElementById('formUserIsActive').checked = !!user.isActive;
+
+    // Admin username cannot be changed
+    document.getElementById('formUserUsername').readOnly = (user.username === 'admin');
+  } else {
+    title.textContent = 'បង្កើតគណនីអ្នកប្រើប្រាស់ថ្មី (New User)';
+    document.getElementById('formUserUsername').readOnly = false;
+    document.getElementById('formUserIsActive').checked = true;
+  }
+
+  modal.classList.add('active');
+}
+
+function closeUserFormModal() {
+  const modal = document.getElementById('userFormModal');
+  if (modal) modal.classList.remove('active');
+  currentEditingUserId = null;
+}
+
+function saveUserAccountForm(e) {
+  e.preventDefault();
+
+  const fullName = document.getElementById('formUserFullName').value.trim();
+  const username = document.getElementById('formUserUsername').value.trim();
+  const password = document.getElementById('formUserPassword').value.trim();
+  const role = document.getElementById('formUserRole').value;
+  const branch = document.getElementById('formUserBranch').value.trim();
+  const phone = document.getElementById('formUserPhone').value.trim();
+  const isActive = document.getElementById('formUserIsActive').checked;
+
+  if (!fullName || !username || !password) {
+    showToast('សូមបំពេញព័ត៌មានចាំបាច់ទាំងអស់!', 'danger');
+    return;
+  }
+
+  if (currentEditingUserId) {
+    const res = AuthManager.updateUser(currentEditingUserId, {
+      fullName,
+      username,
+      password,
+      role,
+      branch,
+      phone,
+      isActive
+    });
+
+    if (res.success) {
+      showToast('បានកែប្រែគណនីជោគជ័យ!', 'success');
+      closeUserFormModal();
+      initAuthUI();
+      renderUserAccountsTable();
+    } else {
+      showToast(res.message, 'danger');
+    }
+  } else {
+    const res = AuthManager.addUser({
+      fullName,
+      username,
+      password,
+      role,
+      branch,
+      phone
+    });
+
+    if (res.success) {
+      showToast(`បានបង្កើតគណនី ${username} ដោយជោគជ័យ!`, 'success');
+      closeUserFormModal();
+      renderUserAccountsTable();
+    } else {
+      showToast(res.message, 'danger');
+    }
+  }
+}
+
+function confirmDeleteUser(id) {
+  const user = AuthManager.getUsers().find(u => u.id === id);
+  if (!user) return;
+
+  if (confirm(`តើអ្នកពិតជាចង់លុបគណនី "${user.fullName}" (${user.username}) មែនទេ?`)) {
+    const res = AuthManager.deleteUser(id);
+    if (res.success) {
+      showToast('បានលុបគណនីរួចរាល់', 'warning');
+      renderUserAccountsTable();
+    } else {
+      showToast(res.message, 'danger');
+    }
+  }
+}
+
+// Switch User & Role Modal Handlers
+function openSwitchUserModal() {
+  const modal = document.getElementById('switchUserModal');
+  if (!modal) return;
+
+  const cur = AuthManager.getCurrentUser();
+  const curRole = cur ? cur.role : 'admin';
+
+  // Highlight active role card
+  document.querySelectorAll('.role-switch-card').forEach(card => {
+    card.classList.remove('active');
+  });
+  const activeCard = document.getElementById(`roleCard-${curRole}`);
+  if (activeCard) activeCard.classList.add('active');
+
+  modal.classList.add('active');
+}
+
+function closeSwitchUserModal() {
+  const modal = document.getElementById('switchUserModal');
+  if (modal) modal.classList.remove('active');
+}
+
+function selectQuickRole(roleKey) {
+  const user = AuthManager.quickSwitchRole(roleKey);
+  if (user) {
+    const roleCfg = ROLES_CONFIG[roleKey] || { labelKh: roleKey };
+    showToast(`បានប្តូរទៅប្រើជា: ${user.fullName} (${roleCfg.labelKh})`, 'success');
+    closeSwitchUserModal();
+    initAuthUI();
+    renderCurrentView();
+  } else {
+    showToast('មិនអាចប្តូរទៅតួនាទីនេះបានទេ!', 'danger');
+  }
+}
+
+function handleManualLogin(e) {
+  e.preventDefault();
+  const username = document.getElementById('loginUsername').value.trim();
+  const password = document.getElementById('loginPassword').value.trim();
+
+  const res = AuthManager.login(username, password);
+  if (res.success) {
+    const roleCfg = ROLES_CONFIG[res.user.role] || { labelKh: res.user.role };
+    showToast(`សូមស្វាគមន៍! ${res.user.fullName} (${roleCfg.labelKh})`, 'success');
+    closeSwitchUserModal();
+    initAuthUI();
+    renderCurrentView();
+  } else {
+    showToast(res.message, 'danger');
+  }
+}
+
+</script>
 </body>
 </html>

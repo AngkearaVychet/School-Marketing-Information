@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ប្រព័ន្ធគ្រប់គ្រង និងកត់ត្រាព័ត៌មានអ្នកសួរព័ត៌មានសាលា | School Inquiry Management</title>
+  <link rel="icon" type="image/png" href="school-logo.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="appSidebar">
+      <div class="brand-section">
+        <img id="brandLogoImg" src="school-logo.png" alt="School Logo" class="brand-logo-img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'44\' height=\'44\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%232563eb\' stroke-width=\'2\'><path d=\'M22 10v6M2 10l10-5 10 5-10 5z\'/><path d=\'M6 12v5c3 3 9 3 12 0v-5\'/></svg>'">
+        <div>
+          <div class="brand-title" id="brandSchoolName">ប្រព័ន្ធគ្រប់គ្រងសាលា</div>
+          <div class="brand-subtitle">School Inquiry CRM</div>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <div class="nav-section-title">មឺនុយចម្បង (Main Menu)</div>
+        
+        <a class="nav-item active" id="nav-dashboard" data-view="dashboard" onclick="switchView('dashboard')">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+          <span>ផ្ទាំងគ្រប់គ្រងទូទៅ</span>
+        </a>
+
+        <a class="nav-item" id="nav-inquiries" data-view="inquiries" onclick="switchView('inquiries')">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span>បញ្ជីអ្នកសួរព័ត៌មាន</span>
+        </a>
+
+        <a class="nav-item" id="nav-kanban" data-view="kanban" onclick="switchView('kanban')">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="18"/><line x1="12" y1="6" x2="12" y2="18"/><rect width="18" height="18" x="3" y="3" rx="2"/></svg>
+          <span>ក្តារតាមដាន (Kanban)</span>
+        </a>
+
+        <a class="nav-item" id="nav-reminders" data-view="reminders" onclick="switchView('reminders')">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span>ត្រូវតាមដានថ្ងៃនេះ</span>
+          <span class="nav-badge warning" id="remindersNavBadge" style="display: none;">0</span>
+        </a>
+
+        <div class="nav-section-title" id="navSectionReports" style="margin-top: 14px;">របាយការណ៍ និងការកំណត់</div>
+
+        <a class="nav-item" id="nav-analytics" data-view="analytics" onclick="switchView('analytics')">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span>ស្ថិតិ និងរបាយការណ៍</span>
+        </a>
+
+        <a class="nav-item" id="nav-settings" data-view="settings" onclick="switchView('settings')">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>ការកំណត់ប្រព័ន្ធ</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="quick-stats-pill">
+          <div style="font-size: 0.8rem; color: var(--slate-600); font-weight: 500;">
+            Excel Export
+          </div>
+          <button class="btn-outline" style="padding: 4px 10px; font-size: 0.76rem; border-radius: 6px; cursor: pointer;" onclick="handleExportCSV()">
+            📥 ទាញយក
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+      
+      <!-- Top Header Sticky -->
+      <header class="top-header">
+        <div class="header-left">
+          <button class="mobile-menu-btn" onclick="toggleMobileSidebar()" aria-label="Menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <div class="header-title-wrapper">
+            <h1 id="pageTitle">ផ្ទាំងគ្រប់គ្រងទូទៅ (Dashboard)</h1>
+            <p>ប្រព័ន្ធគ្រប់គ្រង និងកត់ត្រាព័ត៌មានអ្នកសួរព័ត៌មានសាលា</p>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <div class="live-time-chip">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span id="liveClock">កំពុងផ្ទុក...</span>
+          </div>
+
+          <button class="header-action-btn btn-outline" id="headerAlertBtn" onclick="switchView('reminders')" title="ការងាររំលឹកថ្ងៃនេះ" style="position: relative; padding: 9px 12px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span id="headerAlertBadge" style="display:none; position: absolute; top: -5px; right: -5px; background: var(--danger-500); color: #fff; font-size: 0.68rem; padding: 2px 6px; border-radius: 9999px; font-weight: 700;">0</span>
+          </button>
+
+          <!-- Current Logged-in User Profile Pill -->
+          <div class="user-profile-btn" onclick="openSwitchUserModal()" id="headerUserProfileBtn" title="ចុចដើម្បីប្តូរគណនី ឬតួនាទី (Switch Role/User)">
+            <div class="user-avatar-circle" id="headerUserAvatar">A</div>
+            <div class="user-meta-info">
+              <span class="user-name-text" id="headerUserName">Admin</span>
+              <span class="user-role-text" id="headerUserRole" style="color: #7c3aed;">Admin System</span>
+            </div>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity: 0.6; margin-left: 2px;"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+
+          <button class="header-action-btn btn-primary" id="headerAddInquiryBtn" onclick="openInquiryModal()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span>+ កត់ត្រាព័ត៌មានថ្មី</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Content Area -->
+      <main class="content-area">
+
+        <!-- ================= VIEW 1: DASHBOARD ================= -->
+        <section class="view-section active" id="view-dashboard">
+          
+          <!-- Metric KPI Cards -->
+          <div class="stats-grid">
+            <div class="stat-card blue">
+              <div class="stat-info">
+                <div class="stat-label">អ្នកសួរព័ត៌មានសរុប</div>
+                <div class="stat-value" id="statTotalInquiries">0</div>
+                <div class="stat-desc">ទិន្នន័យតាំងពីដើមមក</div>
+              </div>
+              <div class="stat-icon blue">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+            </div>
+
+            <div class="stat-card green">
+              <div class="stat-info">
+                <div class="stat-label">ចុះឈ្មោះជោគជ័យ</div>
+                <div class="stat-value" id="statEnrolled">0</div>
+                <div class="stat-desc">អត្រាបម្លែងជោគជ័យ (Won)</div>
+              </div>
+              <div class="stat-icon green">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+            </div>
+
+            <div class="stat-card amber">
+              <div class="stat-info">
+                <div class="stat-label">ត្រូវតាមដានថ្ងៃនេះ</div>
+                <div class="stat-value" id="statTodayReminders">0</div>
+                <div class="stat-desc">ដល់ពេលត្រូវទាក់ទង</div>
+              </div>
+              <div class="stat-icon amber">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              </div>
+            </div>
+
+            <div class="stat-card purple">
+              <div class="stat-info">
+                <div class="stat-label">កំពុងដំណើរការតាមដាន</div>
+                <div class="stat-value" id="statPipeline">0</div>
+                <div class="stat-desc">ថ្មី + កំពុងប្រឹក្សា + ណាត់ជួប</div>
+              </div>
+              <div class="stat-icon purple">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+            </div>
+
+            <div class="stat-card rose">
+              <div class="stat-info">
+                <div class="stat-label">សួរក្នុងខែនេះ</div>
+                <div class="stat-value" id="statMonthInquiries">0</div>
+                <div class="stat-desc">ខែបច្ចុប្បន្ន</div>
+              </div>
+              <div class="stat-icon rose">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts Row -->
+          <div class="charts-grid">
+            <div class="chart-card">
+              <div class="chart-header">
+                <div>
+                  <div class="chart-title">ស្ថិតិអ្នកសួរព័ត៌មានតាមប្រភពទីផ្សារ (Marketing Channels)</div>
+                  <div class="chart-subtitle">ប្រភពដែលទទួលបានភ្ញៀវសួរព័ត៌មានច្រើនជាងគេ</div>
+                </div>
+              </div>
+              <div class="chart-container" id="dashboardSourceChart">
+                <!-- Injected via charts.js -->
+              </div>
+            </div>
+
+            <div class="chart-card">
+              <div class="chart-header">
+                <div>
+                  <div class="chart-title">ស្ថានភាពអ្នកសួរព័ត៌មាន (Status Breakdown)</div>
+                  <div class="chart-subtitle">ភាគរយតាមដំណាក់កាលនីមួយៗ</div>
+                </div>
+              </div>
+              <div class="chart-container" id="dashboardStatusDonut">
+                <!-- Injected via charts.js -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Inquiries Table -->
+          <div class="panel-card">
+            <div class="panel-header">
+              <div class="panel-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg>
+                <span>អ្នកសួរព័ត៌មានថ្មីៗចុងក្រោយ (Recent Inquiries)</span>
+              </div>
+              <button class="header-action-btn btn-outline" style="padding: 6px 14px; font-size: 0.82rem;" onclick="switchView('inquiries')">
+                មើលទាំងអស់ &rarr;
+              </button>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>លេខកូដ (ID)</th>
+                    <th>ឈ្មោះអាណាព្យាបាល</th>
+                    <th>ឈ្មោះសិស្ស</th>
+                    <th>ថ្នាក់ចាប់អារម្មណ៍</th>
+                    <th>ស្ថានភាព</th>
+                    <th>សកម្មភាព</th>
+                  </tr>
+                </thead>
+                <tbody id="recentInquiriesTbody">
+                  <!-- Injected via app.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ================= VIEW 2: INQUIRIES LIST ================= -->
+        <section class="view-section" id="view-inquiries">
+          <div class="panel-card">
+            
+            <!-- Filters Bar -->
+            <div class="filter-bar">
+              <div class="search-box">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <input type="text" id="searchInput" placeholder="ស្វែងរកតាមឈ្មោះ, លេខទូរស័ព្ទ, ឈ្មោះកូន, លេខកូដ...">
+              </div>
+
+              <select class="filter-select" id="filterSource">
+                <option value="all">គ្រប់ប្រភពទីផ្សារទាំងអស់</option>
+              </select>
+
+              <select class="filter-select" id="filterGrade">
+                <option value="all">គ្រប់កម្រិតថ្នាក់ទាំងអស់</option>
+              </select>
+
+              <select class="filter-select" id="filterDateRange">
+                <option value="all">គ្រប់កាលបរិច្ឆេទ</option>
+                <option value="today">ថ្ងៃនេះ (Today)</option>
+                <option value="month">ខែនេះ (This Month)</option>
+              </select>
+
+              <button class="header-action-btn btn-outline" id="filterExportBtn" onclick="handleExportCSV()" title="ទាញយកជា Excel">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Excel (CSV)</span>
+              </button>
+
+              <button class="header-action-btn btn-primary" id="tableAddInquiryBtn" onclick="openInquiryModal()">
+                <span>+ កត់ត្រាថ្មី</span>
+              </button>
+            </div>
+
+            <!-- Status Tabs -->
+            <div class="status-tabs">
+              <div class="status-tab active" data-status="all" onclick="setStatusFilter('all')">
+                <span>ទាំងអស់</span>
+                <span class="status-tab-count" id="count-tab-all">0</span>
+              </div>
+              <div class="status-tab" data-status="new" onclick="setStatusFilter('new')">
+                <span>ព័ត៌មានថ្មី</span>
+                <span class="status-tab-count" id="count-tab-new">0</span>
+              </div>
+              <div class="status-tab" data-status="followup" onclick="setStatusFilter('followup')">
+                <span>កំពុងតាមដាន</span>
+                <span class="status-tab-count" id="count-tab-followup">0</span>
+              </div>
+              <div class="status-tab" data-status="visit" onclick="setStatusFilter('visit')">
+                <span>ណាត់ជួប/ទស្សនកិច្ច</span>
+                <span class="status-tab-count" id="count-tab-visit">0</span>
+              </div>
+              <div class="status-tab" data-status="test" onclick="setStatusFilter('test')">
+                <span>ធ្វើតេស្តសមត្ថភាព</span>
+                <span class="status-tab-count" id="count-tab-test">0</span>
+              </div>
+              <div class="status-tab" data-status="enrolled" onclick="setStatusFilter('enrolled')">
+                <span>ចុះឈ្មោះជោគជ័យ 🎉</span>
+                <span class="status-tab-count" id="count-tab-enrolled">0</span>
+              </div>
+              <div class="status-tab" data-status="lost" onclick="setStatusFilter('lost')">
+                <span>មិនចាប់អារម្មណ៍</span>
+                <span class="status-tab-count" id="count-tab-lost">0</span>
+              </div>
+
+              <div style="margin-left: auto; font-size: 0.8rem; color: var(--slate-500); display: flex; align-items: center;" id="tableResultCount">
+                រកឃើញ 0 នាក់
+              </div>
+            </div>
+
+            <!-- Main Inquiries Table -->
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>លេខកូដ</th>
+                    <th>កាលបរិច្ឆេទ</th>
+                    <th>ឈ្មោះអាណាព្យាបាល</th>
+                    <th>លេខទូរស័ព្ទ</th>
+                    <th>ឈ្មោះសិស្ស</th>
+                    <th>ថ្នាក់ចាប់អារម្មណ៍</th>
+                    <th>ប្រភព</th>
+                    <th>ស្ថានភាព / តាមដាន</th>
+                    <th>សកម្មភាព</th>
+                  </tr>
+                </thead>
+                <tbody id="inquiriesTableBody">
+                  <!-- Injected via app.js -->
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ================= VIEW 3: KANBAN BOARD ================= -->
+        <section class="view-section" id="view-kanban">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <p style="font-size: 0.88rem; color: var(--slate-600);">
+              💡 <strong>ការណែនាំ:</strong> អ្នកអាចអូស (Drag) កាតពីប្រអប់មួយទៅប្រអប់មួយទៀត ដើម្បីផ្លាស់ប្តូរដំណាក់កាលតាមដានរបស់ភ្ញៀវ។
+            </p>
+            <button class="header-action-btn btn-primary" id="kanbanAddInquiryBtn" onclick="openInquiryModal()">+ បន្ថែមអ្នកសួរថ្មី</button>
+          </div>
+
+          <div class="kanban-board">
+            
+            <!-- Column 1: New -->
+            <div class="kanban-column" ondragover="handleKanbanDragOver(event)" ondrop="handleKanbanDrop(event, 'new')">
+              <div class="kanban-column-header">
+                <span class="kanban-column-title">
+                  <span style="color: var(--primary-600);">●</span> ព័ត៌មានថ្មី (New)
+                </span>
+                <span class="kanban-column-count" id="kanban-count-new">0</span>
+              </div>
+              <div class="kanban-cards-list" id="kanban-list-new"></div>
+            </div>
+
+            <!-- Column 2: Follow-up -->
+            <div class="kanban-column" ondragover="handleKanbanDragOver(event)" ondrop="handleKanbanDrop(event, 'followup')">
+              <div class="kanban-column-header">
+                <span class="kanban-column-title">
+                  <span style="color: var(--warning-500);">●</span> កំពុងតាមដាន (Follow-up)
+                </span>
+                <span class="kanban-column-count" id="kanban-count-followup">0</span>
+              </div>
+              <div class="kanban-cards-list" id="kanban-list-followup"></div>
+            </div>
+
+            <!-- Column 3: Visit / Tour -->
+            <div class="kanban-column" ondragover="handleKanbanDragOver(event)" ondrop="handleKanbanDrop(event, 'visit')">
+              <div class="kanban-column-header">
+                <span class="kanban-column-title">
+                  <span style="color: var(--purple-500);">●</span> ណាត់ទស្សនកិច្ច (Tour)
+                </span>
+                <span class="kanban-column-count" id="kanban-count-visit">0</span>
+              </div>
+              <div class="kanban-cards-list" id="kanban-list-visit"></div>
+            </div>
+
+            <!-- Column 4: Test -->
+            <div class="kanban-column" ondragover="handleKanbanDragOver(event)" ondrop="handleKanbanDrop(event, 'test')">
+              <div class="kanban-column-header">
+                <span class="kanban-column-title">
+                  <span style="color: #0284c7;">●</span> ធ្វើតេស្ត (Test)
+                </span>
+                <span class="kanban-column-count" id="kanban-count-test">0</span>
+              </div>
+              <div class="kanban-cards-list" id="kanban-list-test"></div>
+            </div>
+
+            <!-- Column 5: Enrolled -->
+            <div class="kanban-column" ondragover="handleKanbanDragOver(event)" ondrop="handleKanbanDrop(event, 'enrolled')">
+              <div class="kanban-column-header">
+                <span class="kanban-column-title">
+                  <span style="color: var(--success-500);">●</span> ចុះឈ្មោះជោគជ័យ 🎉
+                </span>
+                <span class="kanban-column-count" id="kanban-count-enrolled">0</span>
+              </div>
+              <div class="kanban-cards-list" id="kanban-list-enrolled"></div>
+            </div>
+
+            <!-- Column 6: Lost -->
+            <div class="kanban-column" ondragover="handleKanbanDragOver(event)" ondrop="handleKanbanDrop(event, 'lost')">
+              <div class="kanban-column-header">
+                <span class="kanban-column-title">
+                  <span style="color: var(--danger-500);">●</span> មិនទាន់ចាប់អារម្មណ៍
+                </span>
+                <span class="kanban-column-count" id="kanban-count-lost">0</span>
+              </div>
+              <div class="kanban-cards-list" id="kanban-list-lost"></div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ================= VIEW 4: TODAY'S REMINDERS ================= -->
+        <section class="view-section" id="view-reminders">
+          <div style="margin-bottom: 20px;">
+            <p style="color: var(--slate-600); font-size: 0.9rem;">
+              បញ្ជីភ្ញៀវដែលបានកំណត់កាលបរិច្ឆេទត្រូវទាក់ទងតាមដាននៅថ្ងៃនេះ ឬភ្ញៀវដែលហួសកាលកំណត់តាមដាន។
+            </p>
+          </div>
+          
+          <div id="remindersListContainer">
+            <!-- Injected via app.js -->
+          </div>
+        </section>
+
+        <!-- ================= VIEW 5: ANALYTICS ================= -->
+        <section class="view-section" id="view-analytics">
+          <div class="charts-grid" style="margin-bottom: 24px;">
+            <div class="chart-card">
+              <div class="chart-header">
+                <div>
+                  <div class="chart-title">ប្រសិទ្ធភាពប្រភពផ្សព្វផ្សាយទីផ្សារ (Marketing Sources)</div>
+                  <div class="chart-subtitle">ចំនួន និងភាគរយនៃភ្ញៀវតាមប្រភពនីមួយៗ</div>
+                </div>
+              </div>
+              <div class="chart-container" id="analyticsSourceChart"></div>
+            </div>
+
+            <div class="chart-card">
+              <div class="chart-header">
+                <div>
+                  <div class="chart-title">ស្ថានភាពទូទៅនៃ Pipeline (Conversion Status)</div>
+                  <div class="chart-subtitle">សមាមាត្រអ្នកចុះឈ្មោះធៀបនឹងអ្នកសួរ</div>
+                </div>
+              </div>
+              <div class="chart-container" id="analyticsStatusDonut"></div>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-header">
+              <div>
+                <div class="chart-title">តម្រូវការតាមកម្រិតថ្នាក់សិក្សា (Grade Level Demand)</div>
+                <div class="chart-subtitle">កម្រិតថ្នាក់ ឬកម្មវិធីសិក្សាដែលអាណាព្យាបាលសាកសួរច្រើនបំផុត</div>
+              </div>
+            </div>
+            <div class="chart-container" id="analyticsGradeChart"></div>
+          </div>
+        </section>
+
+        <!-- ================= VIEW 6: SETTINGS ================= -->
+        <section class="view-section" id="view-settings">
+          
+          <!-- General Settings -->
+          <div class="settings-section-card">
+            <div class="settings-section-header">
+              <h3 class="settings-section-title">ព័ត៌មានទូទៅរបស់សាលារៀន (School Profile)</h3>
+            </div>
+            <form onsubmit="saveGeneralSettings(event)">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label">ឈ្មោះសាលារៀន (School Name)</label>
+                  <input type="text" class="form-control" id="settingsSchoolName">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">លេខទូរស័ព្ទទាក់ទង (School Phone)</label>
+                  <input type="text" class="form-control" id="settingsSchoolPhone">
+                </div>
+                <div class="form-group full-width">
+                  <label class="form-label">អាសយដ្ឋានសាលា (School Address)</label>
+                  <input type="text" class="form-control" id="settingsSchoolAddress">
+                </div>
+              </div>
+              <button type="submit" class="header-action-btn btn-primary">រក្សាទុកការកំណត់</button>
+            </form>
+          </div>
+
+          <!-- Manage Grades -->
+          <div class="settings-section-card">
+            <div class="settings-section-header">
+              <h3 class="settings-section-title">គ្រប់គ្រងកម្រិតថ្នាក់សិក្សា (Grade Levels / Programs)</h3>
+            </div>
+            <div style="display: flex; gap: 10px; max-width: 500px; margin-bottom: 14px;">
+              <input type="text" class="form-control" id="newGradeInput" placeholder="ឧ. បឋមសិក្សា ថ្នាក់ទី១ (Primary 1)">
+              <button class="header-action-btn btn-primary" onclick="addSettingTag('grade')" style="white-space: nowrap;">+ បន្ថែមថ្នាក់</button>
+            </div>
+            <div class="tags-list" id="settingsGradesTags"></div>
+          </div>
+
+          <!-- Manage Marketing Sources -->
+          <div class="settings-section-card">
+            <div class="settings-section-header">
+              <h3 class="settings-section-title">គ្រប់គ្រងប្រភពផ្សព្វផ្សាយទីផ្សារ (Marketing Sources)</h3>
+            </div>
+            <div style="display: flex; gap: 10px; max-width: 500px; margin-bottom: 14px;">
+              <input type="text" class="form-control" id="newSourceInput" placeholder="ឧ. Facebook Page, TikTok, Walk-in...">
+              <button class="header-action-btn btn-primary" onclick="addSettingTag('source')" style="white-space: nowrap;">+ បន្ថែមប្រភព</button>
+            </div>
+            <div class="tags-list" id="settingsSourcesTags"></div>
+          </div>
+
+          <!-- Manage Counsellors -->
+          <div class="settings-section-card">
+            <div class="settings-section-header">
+              <h3 class="settings-section-title">គ្រប់គ្រងបុគ្គលិកប្រឹក្សា (Counsellors / Admissions Staff)</h3>
+            </div>
+            <div style="display: flex; gap: 10px; max-width: 500px; margin-bottom: 14px;">
+              <input type="text" class="form-control" id="newCounsellorInput" placeholder="ឧ. កញ្ញា សុភា (Sophea)">
+              <button class="header-action-btn btn-primary" onclick="addSettingTag('counsellor')" style="white-space: nowrap;">+ បន្ថែមបុគ្គលិក</button>
+            </div>
+            <div class="tags-list" id="settingsCounsellorsTags"></div>
+          </div>
+
+          <!-- Manage User Accounts (RBAC) -->
+          <div class="settings-section-card" id="settingsUsersSection">
+            <div class="settings-section-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+              <div>
+                <h3 class="settings-section-title">👥 គ្រប់គ្រងគណនីអ្នកប្រើប្រាស់ និងសិទ្ធិ (User Accounts & Roles)</h3>
+                <p style="font-size: 0.8rem; color: var(--slate-500); margin-top: 2px;">
+                  បែងចែកសិទ្ធិប្រើប្រាស់សម្រាប់ គណនេយ្យ, អ្នកផ្ដល់ព័ត៌មាន, នាយកសាខា, និង Admin System
+                </p>
+              </div>
+              <button class="header-action-btn btn-primary" onclick="openUserFormModal()">
+                + បង្កើតគណនីអ្នកប្រើប្រាស់ថ្មី
+              </button>
+            </div>
+
+            <div class="table-responsive" style="margin-top: 14px;">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>ឈ្មោះអ្នកប្រើប្រាស់</th>
+                    <th>ឈ្មោះគណនី (Username)</th>
+                    <th>តួនាទី (Role)</th>
+                    <th>សាខា (Branch)</th>
+                    <th>លេខទូរស័ព្ទ</th>
+                    <th>ស្ថានភាព</th>
+                    <th>សកម្មភាព</th>
+                  </tr>
+                </thead>
+                <tbody id="userAccountsTableBody">
+                  <!-- Injected via app.js -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Permission Comparison Matrix -->
+            <div style="margin-top: 28px; border-top: 1px solid var(--slate-200); padding-top: 20px;">
+              <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--slate-900); margin-bottom: 12px;">
+                📋 តារាងប្រៀបធៀបសិទ្ធិនៃតួនាទីនីមួយៗ (Role Permission Matrix)
+              </h4>
+              <div class="table-responsive">
+                <table class="data-table" style="font-size: 0.82rem;">
+                  <thead>
+                    <tr>
+                      <th>មុខងារ និងសកម្មភាពក្នុងប្រព័ន្ធ</th>
+                      <th style="text-align: center;"><span class="badge badge-admin">Admin System</span></th>
+                      <th style="text-align: center;"><span class="badge badge-director">នាយកសាខា</span></th>
+                      <th style="text-align: center;"><span class="badge badge-counsellor">អ្នកផ្ដល់ព័ត៌មាន</span></th>
+                      <th style="text-align: center;"><span class="badge badge-accountant">គណនេយ្យ</span></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>មើលផ្ទាំងគ្រប់គ្រងទូទៅ (Dashboard)</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                    </tr>
+                    <tr>
+                      <td>មើលបញ្ជីអ្នកសួរព័ត៌មាន (Inquiries List)</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                    </tr>
+                    <tr>
+                      <td>កត់ត្រាអ្នកសួរថ្មី (Add Inquiry)</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--danger-500);">❌ គ្មានសិទ្ធិ</td>
+                    </tr>
+                    <tr>
+                      <td>កែប្រែព័ត៌មានអ្នកសួរ (Edit Inquiry)</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--danger-500);">❌ គ្មានសិទ្ធិ</td>
+                    </tr>
+                    <tr>
+                      <td>កត់ត្រាតាមដាន Follow-up Note & Call/Telegram</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--danger-500);">❌ គ្មានសិទ្ធិ</td>
+                    </tr>
+                    <tr>
+                      <td>ក្តារតាមដាន Kanban Pipeline Board</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត (View)</td>
+                    </tr>
+                    <tr>
+                      <td>ពិនិត្យការងាររំលឹកតាមដានថ្ងៃនេះ (Today's Tasks)</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--danger-500);">❌ គ្មានសិទ្ធិ</td>
+                    </tr>
+                    <tr>
+                      <td>របាយការណ៍ និងស្ថិតិលម្អិត (Analytics)</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--danger-500);">❌ គ្មានសិទ្ធិ</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                    </tr>
+                    <tr>
+                      <td>នាំចេញទិន្នន័យជា Excel (CSV Export)</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--danger-500);">❌ គ្មានសិទ្ធិ</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                    </tr>
+                    <tr>
+                      <td>លុបទិន្នន័យអ្នកសួរព័ត៌មាន (Delete Inquiries)</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--danger-500);">❌ គ្មានសិទ្ធិ</td>
+                      <td style="text-align: center; color: var(--danger-500);">❌ គ្មានសិទ្ធិ</td>
+                      <td style="text-align: center; color: var(--danger-500);">❌ គ្មានសិទ្ធិ</td>
+                    </tr>
+                    <tr>
+                      <td>គ្រប់គ្រង Settings, Users & Backup Database</td>
+                      <td style="text-align: center; color: var(--success-700); font-weight: bold;">✅ អនុញ្ញាត</td>
+                      <td style="text-align: center; color: var(--danger-500);">❌ គ្មានសិទ្ធិ</td>
+                      <td style="text-align: center; color: var(--danger-500);">❌ គ្មានសិទ្ធិ</td>
+                      <td style="text-align: center; color: var(--danger-500);">❌ គ្មានសិទ្ធិ</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Data Backup and Restore -->
+          <div class="settings-section-card">
+            <div class="settings-section-header">
+              <h3 class="settings-section-title">ការគ្រប់គ្រងទិន្នន័យ និងការ Backup (Data Backup & Restore)</h3>
+            </div>
+            <p style="font-size: 0.86rem; color: var(--slate-600); margin-bottom: 18px;">
+              អ្នកអាចទាញយកទិន្នន័យទាំងអស់ទុកការពារការបាត់បង់ ឬផ្ទេរទៅកាន់កុំព្យូទ័រមួយទៀតបានយ៉ាងងាយស្រួល។
+            </p>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+              <button class="header-action-btn btn-outline" onclick="handleExportCSV()">
+                📥 នាំចេញជា Excel (CSV)
+              </button>
+              <button class="header-action-btn btn-outline" onclick="handleExportJSON()">
+                💾 ទាញយក Backup (JSON File)
+              </button>
+              <label class="header-action-btn btn-outline" style="cursor: pointer;">
+                📂 បញ្ចូលទិន្នន័យពី Backup
+                <input type="file" accept=".json" style="display: none;" onchange="handleImportJSON(this)">
+              </label>
+              <button class="header-action-btn btn-outline" onclick="handleResetDemo()">
+                🔄 ផ្ទុកទិន្នន័យសាកល្បង (Load Demo)
+              </button>
+              <button class="header-action-btn btn-danger" onclick="handleClearAll()">
+                🗑️ លុបទិន្នន័យទាំងអស់
+              </button>
+            </div>
+          </div>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+  <!-- ================= MODAL: INQUIRY FORM (ADD / EDIT) ================= -->
+  <div class="modal-overlay" id="inquiryFormModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="inquiryModalTitle">កត់ត្រាព័ត៌មានអ្នកសួរថ្មី</h3>
+        <button class="modal-close-btn" onclick="closeInquiryModal()">&times;</button>
+      </div>
+      <form id="inquiryForm" onsubmit="saveInquiryForm(event)">
+        <div class="modal-body">
+          
+          <!-- Parent Section -->
+          <div class="form-section-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            <span>១. ព័ត៌មានអាណាព្យាបាល (Parent / Contact Info)</span>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">ឈ្មោះអាណាព្យាបាល <span class="required">*</span></label>
+              <input type="text" class="form-control" id="formParentName" placeholder="ឧ. សុខ សុវណ្ណារ៉ា" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">ទំនាក់ទំនងត្រូវជា</label>
+              <select class="form-control" id="formRelation">
+                <option value="ឳពុក (Father)">ឳពុក (Father)</option>
+                <option value="ម្តាយ (Mother)">ម្តាយ (Mother)</option>
+                <option value="អាណាព្យាបាល (Guardian)">អាណាព្យាបាល (Guardian)</option>
+                <option value="សាមីខ្លួន (Self)">សាមីខ្លួន (Self)</option>
+                <option value="ផ្សេងៗ (Other)">ផ្សេងៗ (Other)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">លេខទូរស័ព្ទទី១ <span class="required">*</span></label>
+              <input type="tel" class="form-control" id="formParentPhone" placeholder="ឧ. 012 345 678" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">លេខទូរស័ព្ទទី២ (បើមាន)</label>
+              <input type="tel" class="form-control" id="formParentPhone2" placeholder="ឧ. 098 765 432">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Telegram (Username ឬ លេខ)</label>
+              <input type="text" class="form-control" id="formTelegram" placeholder="ឧ. sok_sovannara ឬ 012345678">
+            </div>
+            <div class="form-group">
+              <label class="form-label">អាសយដ្ឋាន / ខណ្ឌ-ស្រុក</label>
+              <input type="text" class="form-control" id="formAddress" placeholder="ឧ. ខណ្ឌទួលគោក, ភ្នំពេញ">
+            </div>
+          </div>
+
+          <!-- Student Section -->
+          <div class="form-section-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            <span>២. ព័ត៌មានសិស្ស និងកម្មវិធីសិក្សា (Student & Academic Info)</span>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">ឈ្មោះសិស្ស (ភាសាខ្មែរ)</label>
+              <input type="text" class="form-control" id="formStudentNameKh" placeholder="ឧ. សុខ ច័ន្ទមករា">
+            </div>
+            <div class="form-group">
+              <label class="form-label">ឈ្មោះសិស្ស (អក្សរឡាតាំង)</label>
+              <input type="text" class="form-control" id="formStudentNameEn" placeholder="ឧ. Sok Chanmakara">
+            </div>
+            <div class="form-group">
+              <label class="form-label">ភេទ</label>
+              <select class="form-control" id="formGender">
+                <option value="ប្រុស">ប្រុស (Male)</option>
+                <option value="ស្រី">ស្រី (Female)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">ថ្ងៃខែឆ្នាំកំណើត</label>
+              <input type="date" class="form-control" id="formDob">
+            </div>
+            <div class="form-group">
+              <label class="form-label">អាយុ (គិតជាឆ្នាំ)</label>
+              <input type="number" class="form-control" id="formAge" placeholder="ឧ. 6" min="1" max="80">
+            </div>
+            <div class="form-group">
+              <label class="form-label">សាលាចាស់ / បច្ចុប្បន្ន</label>
+              <input type="text" class="form-control" id="formCurrentSchool" placeholder="ឧ. សាលាមត្តេយ្យរដ្ឋ...">
+            </div>
+            <div class="form-group">
+              <label class="form-label">កម្រិតថ្នាក់ចាប់អារម្មណ៍ <span class="required">*</span></label>
+              <select class="form-control" id="formTargetGrade" required>
+                <!-- Injected via app.js -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">វេនសិក្សាដែលចង់បាន</label>
+              <select class="form-control" id="formTargetShift">
+                <!-- Injected via app.js -->
+              </select>
+            </div>
+          </div>
+
+          <!-- Marketing & Follow-up Section -->
+          <div class="form-section-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+            <span>៣. ប្រភពទីផ្សារ និងការតាមដាន (Marketing & Tracking)</span>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">ប្រភពទីផ្សារ (សួរតាមរយៈ) <span class="required">*</span></label>
+              <select class="form-control" id="formSource" required>
+                <!-- Injected via app.js -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">បុគ្គលិកទទួលបន្ទុក/ប្រឹក្សា</label>
+              <select class="form-control" id="formCounsellor">
+                <!-- Injected via app.js -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">ស្ថានភាពដំបូង (Status)</label>
+              <select class="form-control" id="formStatus">
+                <option value="new">ព័ត៌មានថ្មី (New)</option>
+                <option value="followup">កំពុងតាមដាន (In Follow-up)</option>
+                <option value="visit">ណាត់ទស្សនកិច្ច (Tour/Visit)</option>
+                <option value="test">ធ្វើតេស្តសមត្ថភាព (Test)</option>
+                <option value="enrolled">ចុះឈ្មោះជោគជ័យ (Enrolled 🎉)</option>
+                <option value="lost">មិនចាប់អារម្មណ៍/បោះបង់ (Lost)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">កាលបរិច្ឆេទត្រូវទាក់ទងម្តងទៀត</label>
+              <input type="date" class="form-control" id="formNextFollowUp">
+            </div>
+            <div class="form-group full-width">
+              <label class="form-label">ចំណុចចាប់អារម្មណ៍ពិសេស (Interest Areas)</label>
+              <input type="text" class="form-control" id="formInterestAreas" placeholder="ឧ. តម្លៃសិក្សា, ឡានដឹក, អាហារដ្ឋាន, អាហារូបករណ៍...">
+            </div>
+            <div class="form-group full-width">
+              <label class="form-label">កំណត់ចំណាំដំបូងនៃការសន្ទនា</label>
+              <textarea class="form-control" id="formInitialNotes" placeholder="កត់ត្រាសង្ខេបពីតម្រូវការ ឬសំណួររបស់ភ្ញៀវ..."></textarea>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="header-action-btn btn-outline" onclick="closeInquiryModal()">បោះបង់</button>
+          <button type="submit" class="header-action-btn btn-primary">រក្សាទុកព័ត៌មាន</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: FOLLOW-UP NOTE ================= -->
+  <div class="modal-overlay" id="followUpModal">
+    <div class="modal-content" style="max-width: 600px;">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title" id="followUpModalTitle">កត់ត្រាតាមដាន</h3>
+          <p style="font-size: 0.78rem; color: var(--slate-500); margin-top: 4px;" id="followUpModalSub"></p>
+        </div>
+        <button class="modal-close-btn" onclick="closeFollowUpModal()">&times;</button>
+      </div>
+      <form id="followUpForm" onsubmit="saveFollowUpForm(event)">
+        <div class="modal-body">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">មធ្យោបាយទាក់ទង</label>
+              <select class="form-control" id="followUpMethod">
+                <option value="ទូរស័ព្ទ (Phone Call)">ទូរស័ព្ទ (Phone Call)</option>
+                <option value="Telegram Chat">Telegram Chat</option>
+                <option value="Facebook Messenger">Facebook Messenger</option>
+                <option value="TikTok Chat">TikTok Chat</option>
+                <option value="ជួបផ្ទាល់ (In-Person)">ជួបផ្ទាល់ (In-Person)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">បុគ្គលិកកត់ត្រា</label>
+              <select class="form-control" id="followUpCounsellor">
+                <!-- Injected via app.js -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">ប្តូរស្ថានភាពទៅជា</label>
+              <select class="form-control" id="followUpStatus">
+                <option value="followup">កំពុងតាមដាន (In Follow-up)</option>
+                <option value="visit">ណាត់ទស្សនកិច្ច (Tour/Visit)</option>
+                <option value="test">ធ្វើតេស្តសមត្ថភាព (Test)</option>
+                <option value="enrolled">ចុះឈ្មោះជោគជ័យ (Enrolled 🎉)</option>
+                <option value="lost">មិនទាន់ចាប់អារម្មណ៍ (Lost)</option>
+                <option value="new">ព័ត៌មានថ្មី (New)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">កាលបរិច្ឆេទត្រូវទាក់ទងបន្ទាប់</label>
+              <input type="date" class="form-control" id="followUpNextDate">
+            </div>
+            <div class="form-group full-width">
+              <label class="form-label">ខ្លឹមសារនៃការសន្ទនា / លទ្ធផល <span class="required">*</span></label>
+              <textarea class="form-control" id="followUpSummary" placeholder="ឧ. បានតេទៅសួរ គាត់ចាប់អារម្មណ៍ខ្លាំង ចង់មកមើលសាលានៅថ្ងៃសៅរ៍..." required></textarea>
+            </div>
+            <div class="form-group full-width">
+              <label class="form-label">សកម្មភាពបន្ទាប់ (Next Action Plan)</label>
+              <input type="text" class="form-control" id="followUpNextAction" placeholder="ឧ. រៀបចំប័ណ្ណទស្សនកិច្ច និងផ្ញើទីតាំង GPS...">
+            </div>
+          </div>
+
+          <div style="margin-top: 20px; border-top: 1px solid var(--slate-200); padding-top: 14px;">
+            <div style="font-weight: 600; font-size: 0.88rem; color: var(--slate-800); margin-bottom: 8px;">
+              ប្រវត្តិតាមដានកន្លងមក (Previous History):
+            </div>
+            <div id="modalTimelineContainer" style="max-height: 200px; overflow-y: auto;"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="header-action-btn btn-outline" onclick="closeFollowUpModal()">បោះបង់</button>
+          <button type="submit" class="header-action-btn btn-primary">រក្សាទុកកំណត់ត្រា</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: DETAIL PROFILE VIEW ================= -->
+  <div class="modal-overlay" id="detailViewModal">
+    <div class="modal-content" style="max-width: 820px;">
+      <div class="modal-header">
+        <h3 class="modal-title">ព័ត៌មានលម្អិតអ្នកសួរព័ត៌មាន</h3>
+        <button class="modal-close-btn" onclick="closeDetailModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="detailViewBody">
+        <!-- Injected via app.js -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="header-action-btn btn-outline" onclick="closeDetailModal()">បិទ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: SWITCH USER / LOGIN ================= -->
+  <div class="modal-overlay" id="switchUserModal">
+    <div class="modal-content" style="max-width: 680px;">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title">🔐 ប្តូរគណនី និងសាកល្បងតួនាទី (Switch User / Role)</h3>
+          <p style="font-size: 0.8rem; color: var(--slate-500); margin-top: 2px;">
+            ជ្រើសរើសតួនាទីដើម្បីសាកល្បងសិទ្ធិប្រើប្រាស់ជាក់ស្តែងភ្លាមៗ (១-Click Switch)
+          </p>
+        </div>
+        <button class="modal-close-btn" onclick="closeSwitchUserModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        
+        <!-- Quick Switch Roles 1-Click Cards -->
+        <div style="font-weight: 700; font-size: 0.88rem; color: var(--slate-800); margin-bottom: 10px;">
+          ជ្រើសរើសតួនាទីសាកល្បងរហ័ស (Quick Demo Accounts):
+        </div>
+
+        <div class="role-switch-grid">
+          <!-- Role 1: Admin System -->
+          <div class="role-switch-card" onclick="selectQuickRole('admin')" id="roleCard-admin">
+            <div class="role-card-header">
+              <span class="role-card-title">🛡️ Admin System</span>
+              <span class="badge badge-admin">ពេញសិទ្ធិ</span>
+            </div>
+            <div class="role-card-desc">
+              គ្រប់គ្រងប្រព័ន្ធទាំងមូល, កំណត់សិទ្ធិ, គ្រប់គ្រង Users, Backup និងលុបទិន្នន័យ
+            </div>
+            <div class="role-card-permissions">
+              👤 admin | 🔑 123
+            </div>
+          </div>
+
+          <!-- Role 2: Branch Director -->
+          <div class="role-switch-card" onclick="selectQuickRole('director')" id="roleCard-director">
+            <div class="role-card-header">
+              <span class="role-card-title">👔 នាយកសាខា</span>
+              <span class="badge badge-director">Director</span>
+            </div>
+            <div class="role-card-desc">
+              មើលឃើញស្ថិតិ Analytics ទាំងអស់, តាមដានបុគ្គលិក, នាំចេញ Excel, កែប្រែទិន្នន័យ
+            </div>
+            <div class="role-card-permissions">
+              👤 director | 🔑 123
+            </div>
+          </div>
+
+          <!-- Role 3: Counsellor / Information Officer -->
+          <div class="role-switch-card" onclick="selectQuickRole('counsellor')" id="roleCard-counsellor">
+            <div class="role-card-header">
+              <span class="role-card-title">💁‍♀️ អ្នកផ្ដល់ព័ត៌មាន</span>
+              <span class="badge badge-counsellor">Admissions</span>
+            </div>
+            <div class="role-card-desc">
+              កត់ត្រាអ្នកសួរថ្មី, តាមដាន (Follow-up), Call/Telegram, គ្រប់គ្រង Kanban Pipeline
+            </div>
+            <div class="role-card-permissions">
+              👤 info | 🔑 123
+            </div>
+          </div>
+
+          <!-- Role 4: Accountant -->
+          <div class="role-switch-card" onclick="selectQuickRole('accountant')" id="roleCard-accountant">
+            <div class="role-card-header">
+              <span class="role-card-title">💰 គណនេយ្យ</span>
+              <span class="badge badge-accountant">Finance</span>
+            </div>
+            <div class="role-card-desc">
+              ពិនិត្យអ្នកចុះឈ្មោះជោគជ័យ (Enrolled), ពិនិត្យតម្លៃសិក្សា, នាំចេញ Excel របាយការណ៍
+            </div>
+            <div class="role-card-permissions">
+              👤 accountant | 🔑 123
+            </div>
+          </div>
+        </div>
+
+        <!-- Manual Login Form Divider -->
+        <div style="margin: 24px 0 16px; display: flex; align-items: center; gap: 12px; color: var(--slate-400); font-size: 0.8rem;">
+          <div style="flex: 1; height: 1px; background: var(--slate-200);"></div>
+          <span>ឬ បញ្ចូលគណនីជាក់លាក់ (Manual Login)</span>
+          <div style="flex: 1; height: 1px; background: var(--slate-200);"></div>
+        </div>
+
+        <form id="manualLoginForm" onsubmit="handleManualLogin(event)">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">ឈ្មោះគណនី (Username)</label>
+              <input type="text" class="form-control" id="loginUsername" placeholder="ឧ. admin, director, info..." required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">ពាក្យសម្ងាត់ (Password)</label>
+              <input type="password" class="form-control" id="loginPassword" placeholder="បញ្ចូលពាក្យសម្ងាត់ (ដើមគឺ 123)" required>
+            </div>
+          </div>
+          <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 6px;">
+            <button type="submit" class="header-action-btn btn-primary" style="padding: 8px 18px;">
+              ចូលប្រើប្រព័ន្ធ (Login)
+            </button>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="header-action-btn btn-outline" onclick="closeSwitchUserModal()">បិទ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: USER ACCOUNT (ADD / EDIT) ================= -->
+  <div class="modal-overlay" id="userFormModal">
+    <div class="modal-content" style="max-width: 560px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="userModalTitle">បង្កើតគណនីអ្នកប្រើប្រាស់ថ្មី</h3>
+        <button class="modal-close-btn" onclick="closeUserFormModal()">&times;</button>
+      </div>
+      <form id="userAccountForm" onsubmit="saveUserAccountForm(event)">
+        <div class="modal-body">
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label class="form-label">ឈ្មោះពេញបុគ្គលិក (Full Name) <span class="required">*</span></label>
+              <input type="text" class="form-control" id="formUserFullName" placeholder="ឧ. កញ្ញា សុភា (Sophea)" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">ឈ្មោះគណនី (Username) <span class="required">*</span></label>
+              <input type="text" class="form-control" id="formUserUsername" placeholder="ឧ. sophea_info" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">ពាក្យសម្ងាត់ (Password) <span class="required">*</span></label>
+              <input type="text" class="form-control" id="formUserPassword" placeholder="កំណត់ពាក្យសម្ងាត់" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">តួនាទី និងសិទ្ធិ (Role) <span class="required">*</span></label>
+              <select class="form-control" id="formUserRole" required>
+                <option value="counsellor">អ្នកផ្ដល់ព័ត៌មាន / ទទួលភ្ញៀវ</option>
+                <option value="accountant">គណនេយ្យ (Accountant)</option>
+                <option value="director">នាយកសាខា (Branch Director)</option>
+                <option value="admin">Admin System (អ្នកគ្រប់គ្រងប្រព័ន្ធ)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">សាខាទទួលបន្ទុក (Branch)</label>
+              <input type="text" class="form-control" id="formUserBranch" placeholder="ឧ. សាខាទួលគោក, សាខាច្បារអំពៅ...">
+            </div>
+            <div class="form-group full-width">
+              <label class="form-label">លេខទូរស័ព្ទបុគ្គលិក</label>
+              <input type="tel" class="form-control" id="formUserPhone" placeholder="ឧ. 012 345 678">
+            </div>
+            <div class="form-group full-width">
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.88rem; font-weight: 600;">
+                <input type="checkbox" id="formUserIsActive" checked style="width: 18px; height: 18px; accent-color: var(--primary-600);">
+                <span>អនុញ្ញាតឱ្យចូលប្រើប្រព័ន្ធ (Active Account)</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="header-action-btn btn-outline" onclick="closeUserFormModal()">បោះបង់</button>
+          <button type="submit" class="header-action-btn btn-primary">រក្សាទុកគណនី</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

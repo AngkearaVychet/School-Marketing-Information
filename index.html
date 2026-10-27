@@ -2833,7 +2833,7 @@ const DEFAULT_USERS = [
 ];
 
 const DEFAULT_SETTINGS = {
-  schoolName: "សាលារៀន ហែមតុន (Hampton International School)",
+  schoolName: "សាលាអន្តរជាតិ ហេមតុន (Hampton International School)",
   schoolPhone: "012 345 678 / 098 765 432",
   schoolAddress: "រាជធានីភ្នំពេញ, ប្រទេសកម្ពុជា",
   schoolLogo: "school-logo.png",
@@ -3183,7 +3183,13 @@ class DataManager {
         this.saveSettings(DEFAULT_SETTINGS);
         return JSON.parse(JSON.stringify(DEFAULT_SETTINGS));
       }
-      return JSON.parse(data);
+      const parsed = JSON.parse(data);
+      // Correct the old misspelled default school name saved in earlier versions
+      if (parsed.schoolName === "សាលារៀន ហែមតុន (Hampton International School)") {
+        parsed.schoolName = DEFAULT_SETTINGS.schoolName;
+        localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(parsed));
+      }
+      return parsed;
     } catch (e) {
       console.error("Error reading settings", e);
       return DEFAULT_SETTINGS;

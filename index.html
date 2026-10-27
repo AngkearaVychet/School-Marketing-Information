@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ប្រព័ន្ធគ្រប់គ្រង និងកត់ត្រាព័ត៌មានអ្នកសួរព័ត៌មានសាលា | School Inquiry Management</title>
   <link rel="icon" type="image/png" href="school-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
   <style>
 /* ==========================================================================
    ប្រព័ន្ធគ្រប់គ្រង និងកត់ត្រាព័ត៌មានអ្នកសួរព័ត៌មានសាលា
@@ -12,7 +15,6 @@
    Stylesheet (Modern, Responsive, Khmer Typography)
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 :root {
   --font-main: 'Kantumruy Pro', 'Plus Jakarta Sans', 'Khmer OS Siemreap', 'Khmer OS', 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -1367,6 +1369,7 @@ textarea.form-control {
   .form-grid.three-col {
     grid-template-columns: 1fr;
   }
+
 }
 
 /* ================= RBAC & User Management Styles ================= */
@@ -1521,6 +1524,44 @@ textarea.form-control {
 .user-status-dot.inactive { background-color: var(--danger-500); }
 
 
+
+/* ===== Phone & tablet fixes (kept last so they win) ===== */
+@media (max-width: 900px) {
+  /* Phone / tablet header: keep it on one tidy line */
+  .top-header { gap: 8px; }
+  .header-left { gap: 8px; min-width: 0; flex: 1 1 auto; }
+  .header-title-wrapper { min-width: 0; }
+  .header-title-wrapper h1 {
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .header-title-wrapper p,
+  .live-time-chip,
+  .user-meta-info,
+  #headerAddInquiryBtn span { display: none; }
+  .header-right { gap: 8px; flex-shrink: 0; }
+  .user-profile-btn { padding: 4px; gap: 0; }
+  .user-profile-btn > svg { display: none; }
+  #headerAddInquiryBtn { padding: 9px 11px; }
+
+  /* Search & filters: one per line, full width, never wider than the card */
+  .filter-bar { padding: 12px; gap: 8px; }
+  .search-box { min-width: 0; flex: 1 1 100%; }
+  .filter-bar .filter-select { flex: 1 1 100%; width: 100%; min-width: 0; max-width: 100%; }
+  .status-tabs { padding: 8px 12px; -webkit-overflow-scrolling: touch; }
+  .status-tab { flex-shrink: 0; padding: 6px 12px; }
+
+  /* Dim the page while the menu is open; tap it to close the menu */
+  .sidebar.open ~ .main-wrapper::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.35);
+    z-index: 35;
+  }
+}
 </style>
 </head>
 <body>
@@ -1624,7 +1665,7 @@ textarea.form-control {
 
           <button class="header-action-btn btn-primary" id="headerAddInquiryBtn" onclick="openInquiryModal()">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            <span>+ កត់ត្រាព័ត៌មានថ្មី</span>
+            <span>កត់ត្រាព័ត៌មានថ្មី</span>
           </button>
         </div>
       </header>
@@ -2613,6 +2654,25 @@ textarea.form-control {
  */
 
 const STORAGE_KEY_INQUIRIES = 'school_inquiries_db_v1';
+
+// Local date as YYYY-MM-DD (uses the computer's own time zone, e.g. Cambodia UTC+7 — not UTC)
+function localDateStr(d) {
+  d = d || new Date();
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+function todayStr() { return localDateStr(new Date()); }
+
+// Run a function only after the user stops typing for `wait` ms
+function debounce(fn, wait) {
+  let t;
+  return function(...args) { clearTimeout(t); t = setTimeout(() => fn.apply(this, args), wait); };
+}
+
+// How many rows/cards to draw at once (more appear with the "show more" button)
+const TABLE_PAGE_SIZE = 50;
+const KANBAN_PAGE_SIZE = 30;
+let tableVisibleCount = TABLE_PAGE_SIZE;
+const kanbanVisibleCount = {};
 const STORAGE_KEY_SETTINGS  = 'school_settings_db_v1';
 const STORAGE_KEY_USERS     = 'school_users_db_v1';
 const STORAGE_KEY_AUTH      = 'school_current_user_v1';
@@ -2868,13 +2928,13 @@ const STATUS_CONFIG = {
 
 // Realistic Demo Data for School Inquiries
 function getSampleInquiries() {
-  const today = new Date().toISOString().split('T')[0];
+  const today = todayStr();
   
   // Helper to create dates offset by days
   function getDateOffset(days) {
     const d = new Date();
     d.setDate(d.getDate() + days);
-    return d.toISOString().split('T')[0];
+    return localDateStr(d);
   }
 
   return [
@@ -3121,7 +3181,7 @@ class DataManager {
       const data = localStorage.getItem(STORAGE_KEY_SETTINGS);
       if (!data) {
         this.saveSettings(DEFAULT_SETTINGS);
-        return DEFAULT_SETTINGS;
+        return JSON.parse(JSON.stringify(DEFAULT_SETTINGS));
       }
       return JSON.parse(data);
     } catch (e) {
@@ -3140,7 +3200,10 @@ class DataManager {
     }
   }
 
+  // Inquiries are kept in memory after the first read, so the app does not
+  // re-read and re-parse the whole database on every click or keystroke.
   static getInquiries() {
+    if (DataManager._cache) return DataManager._cache;
     try {
       const data = localStorage.getItem(STORAGE_KEY_INQUIRIES);
       if (!data) {
@@ -3148,7 +3211,8 @@ class DataManager {
         this.saveInquiries(demoData);
         return demoData;
       }
-      return JSON.parse(data);
+      DataManager._cache = JSON.parse(data);
+      return DataManager._cache;
     } catch (e) {
       console.error("Error reading inquiries", e);
       return [];
@@ -3158,22 +3222,37 @@ class DataManager {
   static saveInquiries(inquiries) {
     try {
       localStorage.setItem(STORAGE_KEY_INQUIRIES, JSON.stringify(inquiries));
+      DataManager._cache = inquiries;
       return true;
     } catch (e) {
       console.error("Error saving inquiries", e);
+      DataManager._cache = null;
+      alert("⚠️ មិនអាចរក្សាទុកទិន្នន័យបានទេ! អង្គចងចាំរបស់ Browser អាចពេញ។ សូមទាញយក Backup (JSON) ជាមុនសិន។");
       return false;
     }
+  }
+
+  static invalidateCache() {
+    DataManager._cache = null;
   }
 
   static addInquiry(item) {
     const list = this.getInquiries();
     if (!item.id) {
+      // Next number = highest existing number this year + 1 (never re-uses an ID after a delete)
       const year = new Date().getFullYear();
-      const count = list.length + 1;
-      item.id = `INQ-${year}-${String(count).padStart(3, '0')}`;
+      const prefix = `INQ-${year}-`;
+      let maxNum = 0;
+      list.forEach(x => {
+        if (x.id && x.id.startsWith(prefix)) {
+          const n = parseInt(x.id.slice(prefix.length), 10);
+          if (n > maxNum) maxNum = n;
+        }
+      });
+      item.id = `${prefix}${String(maxNum + 1).padStart(3, '0')}`;
     }
     if (!item.createdAt) {
-      item.createdAt = new Date().toISOString().split('T')[0];
+      item.createdAt = todayStr();
     }
     if (!item.followUpLogs) {
       item.followUpLogs = [];
@@ -3208,7 +3287,7 @@ class DataManager {
       if (!item.followUpLogs) item.followUpLogs = [];
       const newLog = {
         id: 'log-' + Date.now(),
-        date: note.date || new Date().toISOString().split('T')[0],
+        date: note.date || todayStr(),
         time: note.time || new Date().toTimeString().substring(0, 5),
         method: note.method || 'ទូរស័ព្ទ (Phone Call)',
         counsellor: note.counsellor || 'បុគ្គលិក',
@@ -3276,41 +3355,46 @@ class DataManager {
       "កំណត់ចំណាំដំបូង (Notes)"
     ];
 
+    // Wrap every value in quotes so commas / quotes / new lines inside names never break the columns
+    const q = (v) => `"${String(v === undefined || v === null ? '' : v).replace(/"/g, '""')}"`;
+    // Phone numbers as ="012..." so Excel keeps the leading 0
+    const phone = (v) => v ? ('"=' + '""' + String(v).replace(/"/g, '') + '""' + '"') : '""';
+
     const rows = inquiries.map(item => [
-      item.id,
-      item.createdAt,
-      item.time || "",
-      item.parentName,
-      `'${item.parentPhone}`,
-      item.parentPhone2 ? `'${item.parentPhone2}` : "",
-      item.telegram || "",
-      item.relation || "",
-      `"${(item.address || '').replace(/"/g, '""')}"`,
-      `"${(item.studentNameKh || '').replace(/"/g, '""')}"`,
-      `"${(item.studentNameEn || '').replace(/"/g, '""')}"`,
-      item.gender || "",
-      item.dob || "",
-      item.age || "",
-      `"${(item.currentSchool || '').replace(/"/g, '""')}"`,
-      `"${(item.targetGrade || '').replace(/"/g, '""')}"`,
-      `"${(item.targetShift || '').replace(/"/g, '""')}"`,
-      `"${(item.source || '').replace(/"/g, '""')}"`,
-      `"${(item.counsellor || '').replace(/"/g, '""')}"`,
-      STATUS_CONFIG[item.status] ? STATUS_CONFIG[item.status].labelKh : item.status,
-      item.nextFollowUpDate || "",
-      item.followUpLogs ? item.followUpLogs.length : 0,
-      `"${(item.initialNotes || '').replace(/"/g, '""')}"`
+      q(item.id),
+      q(item.createdAt),
+      q(item.time),
+      q(item.parentName),
+      phone(item.parentPhone),
+      phone(item.parentPhone2),
+      q(item.telegram),
+      q(item.relation),
+      q(item.address),
+      q(item.studentNameKh),
+      q(item.studentNameEn),
+      q(item.gender),
+      q(item.dob),
+      q(item.age),
+      q(item.currentSchool),
+      q(item.targetGrade),
+      q(item.targetShift),
+      q(item.source),
+      q(item.counsellor),
+      q(STATUS_CONFIG[item.status] ? STATUS_CONFIG[item.status].labelKh : item.status),
+      q(item.nextFollowUpDate),
+      q(item.followUpLogs ? item.followUpLogs.length : 0),
+      q(item.initialNotes)
     ]);
 
     const csvContent = "\uFEFF" + [
-      headers.join(","),
+      headers.map(q).join(","),
       ...rows.map(r => r.join(","))
     ].join("\r\n");
 
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
-    const today = new Date().toISOString().split('T')[0];
+    const today = todayStr();
     link.setAttribute("href", url);
     link.setAttribute("download", `school_inquiries_${today}.csv`);
     document.body.appendChild(link);
@@ -3331,7 +3415,7 @@ class DataManager {
     const blob = new Blob([jsonStr], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
-    const today = new Date().toISOString().split('T')[0];
+    const today = todayStr();
     link.setAttribute("href", url);
     link.setAttribute("download", `school_crm_backup_${today}.json`);
     document.body.appendChild(link);
@@ -3344,6 +3428,9 @@ class DataManager {
   static importBackupJSON(fileContent) {
     try {
       const data = JSON.parse(fileContent);
+      if (!Array.isArray(data.inquiries) && !(data.settings && typeof data.settings === 'object')) {
+        return false;
+      }
       if (Array.isArray(data.inquiries)) {
         this.saveInquiries(data.inquiries);
       }
@@ -3467,7 +3554,7 @@ class AuthManager {
       branch: userData.branch || 'សាខាទូទៅ',
       phone: userData.phone || '',
       isActive: true,
-      createdAt: new Date().toISOString().split('T')[0]
+      createdAt: todayStr()
     };
 
     users.push(newUser);
@@ -3878,7 +3965,7 @@ function renderCurrentView() {
 
 // Render Dashboard View
 function renderDashboard(inquiries) {
-  const today = new Date().toISOString().split('T')[0];
+  const today = todayStr();
   const thisMonth = today.substring(0, 7);
 
   const total = inquiries.length;
@@ -3959,7 +4046,7 @@ function getFilteredInquiries() {
   const gradeFilter = document.getElementById('filterGrade')?.value || 'all';
   const dateRange = document.getElementById('filterDateRange')?.value || 'all';
 
-  const today = new Date().toISOString().split('T')[0];
+  const today = todayStr();
   const thisMonth = today.substring(0, 7);
 
   return inquiries.filter(item => {
@@ -3990,7 +4077,12 @@ function getFilteredInquiries() {
     if (search) {
       const matchId = (item.id || '').toLowerCase().includes(search);
       const matchParent = (item.parentName || '').toLowerCase().includes(search);
-      const matchPhone = (item.parentPhone || '').includes(search) || (item.parentPhone2 || '').includes(search);
+      const searchDigits = search.replace(/\D/g, '');
+      const matchPhone = (item.parentPhone || '').includes(search) || (item.parentPhone2 || '').includes(search) ||
+        (searchDigits.length >= 3 && (
+          (item.parentPhone || '').replace(/\D/g, '').includes(searchDigits) ||
+          (item.parentPhone2 || '').replace(/\D/g, '').includes(searchDigits)
+        ));
       const matchTelegram = (item.telegram || '').toLowerCase().includes(search);
       const matchStudentKh = (item.studentNameKh || '').toLowerCase().includes(search);
       const matchStudentEn = (item.studentNameEn || '').toLowerCase().includes(search);
@@ -4005,13 +4097,15 @@ function getFilteredInquiries() {
 }
 
 // Render Main Inquiries Table
-function renderInquiriesTable() {
-  const list = getFilteredInquiries();
+function renderInquiriesTable(resetPaging) {
+  if (resetPaging !== false) tableVisibleCount = TABLE_PAGE_SIZE;
+  const fullList = getFilteredInquiries();
+  const list = fullList.slice(0, tableVisibleCount);
   const tbody = document.getElementById('inquiriesTableBody');
   const countEl = document.getElementById('tableResultCount');
   if (!tbody) return;
 
-  if (countEl) countEl.textContent = `រកឃើញ ${list.length} នាក់`;
+  if (countEl) countEl.textContent = `រកឃើញ ${fullList.length} នាក់`;
 
   // Update Status Tab Counts
   updateStatusTabCounts();
@@ -4040,7 +4134,7 @@ function renderInquiriesTable() {
 
     return `
       <tr>
-        <td style="font-weight: 700; color: var(--primary-700); font-family: monospace;">${item.id}</td>
+        <td style="font-weight: 700; color: var(--primary-700); font-family: monospace; white-space: nowrap;">${item.id}</td>
         <td>
           <div style="font-size: 0.85rem; font-weight: 500;">${item.createdAt || '-'}</div>
           <div style="font-size: 0.74rem; color: var(--slate-400);">${item.time || ''}</div>
@@ -4102,7 +4196,19 @@ function renderInquiriesTable() {
         </td>
       </tr>
     `;
-  }).join('');
+  }).join('') + (fullList.length > list.length ? `
+      <tr>
+        <td colspan="9" style="text-align: center; padding: 16px;">
+          <button type="button" class="btn-secondary" style="padding: 8px 18px; border-radius: 8px; border: 1px solid var(--slate-300); background: #fff; cursor: pointer; font-family: inherit; font-weight: 600;" onclick="showMoreInquiries()">
+            បង្ហាញបន្ថែម (${list.length} / ${fullList.length})
+          </button>
+        </td>
+      </tr>` : '');
+}
+
+function showMoreInquiries() {
+  tableVisibleCount += TABLE_PAGE_SIZE;
+  renderInquiriesTable(false);
 }
 
 // Update Counts for Status Filter Tabs
@@ -4147,8 +4253,10 @@ function renderKanbanBoard(inquiries) {
     const colCountEl = document.getElementById(`kanban-count-${colKey}`);
     if (!colListEl) return;
 
-    const items = inquiries.filter(x => (x.status || 'new') === colKey);
-    if (colCountEl) colCountEl.textContent = items.length;
+    const allItems = inquiries.filter(x => (x.status || 'new') === colKey);
+    if (colCountEl) colCountEl.textContent = allItems.length;
+    const limit = kanbanVisibleCount[colKey] || KANBAN_PAGE_SIZE;
+    const items = allItems.slice(0, limit);
 
     if (items.length === 0) {
       colListEl.innerHTML = `<div style="text-align: center; color: var(--slate-400); font-size: 0.8rem; padding: 24px 0;">គ្មានទិន្នន័យ</div>`;
@@ -4190,8 +4298,16 @@ function renderKanbanBoard(inquiries) {
           </div>
         </div>
       </div>
-    `).join('');
+    `).join('') + (allItems.length > items.length ? `
+      <button type="button" style="width: 100%; padding: 8px; margin-top: 4px; border-radius: 8px; border: 1px dashed var(--slate-300); background: #fff; cursor: pointer; font-family: inherit; font-size: 0.8rem; color: var(--slate-600);" onclick="showMoreKanban('${colKey}')">
+        បង្ហាញបន្ថែម (${items.length} / ${allItems.length})
+      </button>` : '');
   });
+}
+
+function showMoreKanban(colKey) {
+  kanbanVisibleCount[colKey] = (kanbanVisibleCount[colKey] || KANBAN_PAGE_SIZE) + KANBAN_PAGE_SIZE;
+  renderKanbanBoard(DataManager.getInquiries());
 }
 
 function quickUpdateStatus(id, newStatus) {
@@ -4237,21 +4353,21 @@ function renderRemindersView(inquiries) {
   const container = document.getElementById('remindersListContainer');
   if (!container) return;
 
-  const today = new Date().toISOString().split('T')[0];
+  const today = todayStr();
 
   const dueItems = inquiries.filter(x => 
     x.nextFollowUpDate && 
     x.nextFollowUpDate <= today && 
     x.status !== 'enrolled' && 
     x.status !== 'lost'
-  );
+  ).sort((a, b) => a.nextFollowUpDate.localeCompare(b.nextFollowUpDate));
 
   const upcomingItems = inquiries.filter(x => 
     x.nextFollowUpDate && 
     x.nextFollowUpDate > today && 
     x.status !== 'enrolled' && 
     x.status !== 'lost'
-  );
+  ).sort((a, b) => a.nextFollowUpDate.localeCompare(b.nextFollowUpDate));
 
   if (dueItems.length === 0 && upcomingItems.length === 0) {
     container.innerHTML = `
@@ -4347,7 +4463,7 @@ function renderAnalyticsView(inquiries) {
 // Update Top Badge & Sidebar Counters
 function updateRemindersBadge() {
   const inquiries = DataManager.getInquiries();
-  const today = new Date().toISOString().split('T')[0];
+  const today = todayStr();
 
   const dueToday = inquiries.filter(x => 
     x.nextFollowUpDate && 
@@ -4435,9 +4551,11 @@ function closeInquiryModal() {
 function handleDobChange(e) {
   const val = e.target.value;
   if (!val) return;
-  const birthYear = new Date(val).getFullYear();
-  const currentYear = new Date().getFullYear();
-  const age = currentYear - birthYear;
+  const dob = new Date(val + 'T00:00:00');
+  const now = new Date();
+  let age = now.getFullYear() - dob.getFullYear();
+  const hadBirthday = (now.getMonth() > dob.getMonth()) || (now.getMonth() === dob.getMonth() && now.getDate() >= dob.getDate());
+  if (!hadBirthday) age--;
   if (age >= 0 && age < 100) {
     document.getElementById('formAge').value = age;
   }
@@ -4475,9 +4593,12 @@ function saveInquiryForm(e) {
     status: document.getElementById('formStatus').value,
     nextFollowUpDate: document.getElementById('formNextFollowUp').value,
     interestAreas: document.getElementById('formInterestAreas').value.trim(),
-    initialNotes: document.getElementById('formInitialNotes').value.trim(),
-    time: new Date().toTimeString().substring(0, 5)
+    initialNotes: document.getElementById('formInitialNotes').value.trim()
   };
+
+  if (!currentEditingId) {
+    payload.time = new Date().toTimeString().substring(0, 5);
+  }
 
   if (currentEditingId) {
     DataManager.updateInquiry(currentEditingId, payload);
@@ -4847,7 +4968,7 @@ function printInquirySheet(id) {
 
       <script>
         window.onload = function() { window.print(); }
-      </script>
+      <\/script>
     </body>
     </html>
   `);
@@ -5041,9 +5162,11 @@ function handleImportJSON(input) {
   const reader = new FileReader();
   reader.onload = function(e) {
     const success = DataManager.importBackupJSON(e.target.result);
+    input.value = '';
     if (success) {
       showToast('បានបញ្ចូលទិន្នន័យពី Backup ជោគជ័យ!', 'success');
       initSettingsUI();
+      populateDropdowns();
       renderCurrentView();
     } else {
       showToast('ឯកសារ Backup មិនត្រឹមត្រូវទេ!', 'danger');
@@ -5119,9 +5242,9 @@ function setupEventListeners() {
   // Search and filters
   const searchInput = document.getElementById('searchInput');
   if (searchInput) {
-    searchInput.addEventListener('input', () => {
+    searchInput.addEventListener('input', debounce(() => {
       renderInquiriesTable();
-    });
+    }, 200));
   }
 
   const filterSource = document.getElementById('filterSource');
@@ -5150,6 +5273,51 @@ function setupEventListeners() {
   if (formDob) {
     formDob.addEventListener('change', handleDobChange);
   }
+
+  // Press Enter in the Settings boxes to add an item
+  [['newGradeInput', 'grade'], ['newSourceInput', 'source'], ['newCounsellorInput', 'counsellor']].forEach(([inputId, type]) => {
+    const el = document.getElementById(inputId);
+    if (el) el.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Enter') { ev.preventDefault(); addSettingTag(type); }
+    });
+  });
+
+  // Tap the dimmed area to close the phone menu
+  const mainWrapper = document.querySelector('.main-wrapper');
+  if (mainWrapper) {
+    mainWrapper.addEventListener('click', (ev) => {
+      if (ev.target === mainWrapper) closeMobileSidebar();
+    });
+  }
+
+  // Press Esc to close the open popup window
+  document.addEventListener('keydown', (ev) => {
+    if (ev.key !== 'Escape') return;
+    closeDetailModal();
+    closeFollowUpModal();
+    closeInquiryModal();
+    closeUserFormModal();
+    closeSwitchUserModal();
+    closeMobileSidebar();
+  });
+
+  // If the app is open in two tabs, keep both up to date
+  window.addEventListener('storage', (ev) => {
+    if (ev.key === STORAGE_KEY_INQUIRIES || ev.key === null) {
+      DataManager.invalidateCache();
+      renderCurrentView();
+    } else if (ev.key === STORAGE_KEY_SETTINGS) {
+      initSettingsUI();
+      populateDropdowns();
+    }
+  });
+
+  // Refresh "today" reminders when the date changes (app left open overnight)
+  let lastDay = todayStr();
+  setInterval(() => {
+    const d = todayStr();
+    if (d !== lastDay) { lastDay = d; renderCurrentView(); }
+  }, 60000);
 }
 
 // ================= RBAC & User Management Functions =================
